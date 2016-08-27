@@ -7,18 +7,39 @@
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
-.newsTileImage {
-    height: 198px;
-    width: 198px;
-}
-
 .newsTile {
-    background-color: white;
     height: 200px;
+    display: flex;
+    flex-direction: column-reverse;
 }
 
-.newsTileTitle {
-    font-size: 1.2em;
-    color: #141301;
-    font-weight: bold;
+.newsIcon {
+    width: 35px;
+    height: 35px;
 }
+
+.tileIconDiv {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.tileTitle {
+    color: #E5E7E6;
+    font-size: 1.2em;
+}
+
+.newsTileInfo {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 1s;
+    background: rgba(107,43,6,0.6);
+    height: 100px;
+    width: 100%;
+}
+
+.newsTile:hover .newsTileInfo {
+    visibility: visible;
+    opacity: 1;
+}
+
