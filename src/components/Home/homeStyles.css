@@ -1,0 +1,9 @@
+#homeHeaderParallax {
+    background-image: url("/statics/boatCompressed1600.jpg");
+    height: 550px;
+    background-attachment: fixed;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: auto;
+    border-top: 2px solid #6B2B06;
+}
