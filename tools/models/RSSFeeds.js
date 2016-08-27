@@ -5,25 +5,31 @@ const parseXML = require("xml2js").parseString;
 
 
 const cleanCNNObject = (cnnObject) => {
-    let descriptionRegex = new RegExp("^(.*?)[.?!]\s");
-    console.log("To clean right here \n: ", cnnObject);
-    console.log("media group: ", cnnObject["media:group"][0]["media:content"][0])
+    let descriptionRegex = /^(.*?)[.?!]/;
+    let description;
+    if (descriptionRegex.exec(cnnObject.description[0]).length) {
+        let clean = descriptionRegex.exec(cnnObject.description[0])[0];
+        description = clean.replace(/[\\]/g, "");
+    }
     let toReturn = {};
+    toReturn.source = "CNN";
     if (cnnObject.title.length) toReturn.title = cnnObject.title[0];
-    if (cnnObject.description.length) toReturn.description = descriptionRegex.exec(cnnObject.description[0]);
+    if (cnnObject.description.length) toReturn.description = description;
     if (cnnObject.link.length) toReturn.link = cnnObject.link[0];
     if (cnnObject.pubDate.length) toReturn.published = cnnObject.pubDate[0];
     if (cnnObject["media:group"].length && cnnObject["media:group"][0]["media:content"].length) {
         toReturn.image = cnnObject["media:group"][0]["media:content"][0]["$"].url;
     }
-    console.log("To return: ", toReturn);
+    return toReturn;
 };
 
 const cleanCNN = (XML) => {
     //will return an array of objects
-    cleanCNNObject(XML.rss.channel[0].item[0]);
-    //if (XML.rss.channel.length) return XML.rss.channel[0].item;
-    return XML.rss.channel[0].item[0];
+
+    if (XML.rss.channel.length) return XML.rss.channel[0].item.map(item => {
+        return cleanCNNObject(item);
+    });
+    //return cleanCNNObject(XML.rss.channel[0].item[0]);
 };
 
 const cleanXML = (source, XML) => {

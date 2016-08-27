@@ -8,6 +8,7 @@ import { Router, applyRouterMiddleware, browserHistory } from "react-router";
 import useScroll from "react-router-scroll";
 import {generateRoutes} from "./routes";
 import "./components/Home/homeStyles.css";
+import "./styles/styles.css";
 import "../node_modules/react-bootstrap/dist/react-bootstrap.min";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../node_modules/toastr/build/toastr.min.css";

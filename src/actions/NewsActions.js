@@ -1,20 +1,23 @@
 "use strict";
 
+import * as types from "./actionTypes";
 import * as FunctionTools from "./FunctionTools";
 
+export function dispatchCNN(arrayOfNews) {
+    return {
+        type: types.DISPATCH_CNN,
+        arrayOfNews
+    };
+}
 
-export function retrieveNewsPastHours(hours) {
+export function retrieveFromCNN(hours) {
     return function(dispatch) {
         fetch(`/api/news/newsPastHours/${hours}`)
             .then(response => {
-                console.log("Response: ", response)
                 return response.json();
             })
             .then(parsedResponse => {
-                console.log("Parsed Response: \n", parsedResponse);
-                if (parsedResponse.status === "OK") {
-                    console.log(FunctionTools.cleanNewsResponseObject(parsedResponse));
-                }
+                dispatch(dispatchCNN(parsedResponse));
             })
             .catch(error => {
                 console.log("Error: ", error);
