@@ -6,3 +6,19 @@
 .cardEffect:hover {
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
+
+.newsTileImage {
+    height: 198px;
+    width: 198px;
+}
+
+.newsTile {
+    background-color: white;
+    height: 200px;
+}
+
+.newsTileTitle {
+    font-size: 1.2em;
+    color: #141301;
+    font-weight: bold;
+}

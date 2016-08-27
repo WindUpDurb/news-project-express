@@ -10,9 +10,9 @@ export function dispatchCNN(arrayOfNews) {
     };
 }
 
-export function retrieveFromCNN(hours) {
+export function retrieveFromCNN() {
     return function(dispatch) {
-        fetch(`/api/news/newsPastHours/${hours}`)
+        fetch("/api/news/newsPastHours/")
             .then(response => {
                 return response.json();
             })

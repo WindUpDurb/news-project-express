@@ -18,7 +18,7 @@ const cleanCNNObject = (cnnObject) => {
     if (cnnObject.link.length) toReturn.link = cnnObject.link[0];
     if (cnnObject.pubDate.length) toReturn.published = cnnObject.pubDate[0];
     if (cnnObject["media:group"].length && cnnObject["media:group"][0]["media:content"].length) {
-        toReturn.image = cnnObject["media:group"][0]["media:content"][0]["$"].url;
+        toReturn.image = cnnObject["media:group"][0]["media:content"][1]["$"].url;
     }
     return toReturn;
 };
@@ -36,12 +36,11 @@ const cleanXML = (source, XML) => {
         if (source === "CNN") return cleanCNN(XML);
 };
 
-export const retrievePastHours = (hours, callback) => {
+export const retrievePastHours = (callback) => {
     requestNPM("http://rss.cnn.com/rss/cnn_topstories.rss", (error, response, body) => {
         if (error) return callback(error);
         parseXML(body, (error, parsedXML) => {
             let clean = cleanXML("CNN", parsedXML);
-            console.log("Clean \n \n", clean)
             callback(error, clean);
         });
     });

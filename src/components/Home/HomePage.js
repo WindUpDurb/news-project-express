@@ -18,14 +18,14 @@ class HomePage extends React.Component {
 
 
     render() {
-        let firstNews;
-        if (this.props.CNN) firstNews = <NewsTile newsObject={this.props.CNN[0]}/>;
+        let CNN;
+        if (this.props.CNN) CNN = this.props.CNN.map((item, index) => <NewsTile newsObject={item} key={index}/>);
         return (
             <div>
                 <HomeHeader/>
                 <div className="container">
                     <div className="row">
-                        {firstNews}
+                        {CNN}
                     </div>
                 </div>
             </div>
