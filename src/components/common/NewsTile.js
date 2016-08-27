@@ -1,22 +1,27 @@
 "use strict";
 
 import React, {PropTypes} from "react";
+import {NewsModal} from "./NewsModal";
 
-export const NewsTile = ({newsObject}) => {
-    console.log(newsObject);
+export const NewsTile = ({newsObject, index, closeModal, openModal}) => {
+    let displayInfo = () => openModal(index);
     return (
-        <div style={{backgroundImage: `url(${newsObject.image})`}} className="col-md-3 newsTile">
+        <div onClick={displayInfo} style={{backgroundImage: `url(${newsObject.image})`}} className="col-md-3 newsTile">
             <div className="newsTileInfo text-center">
                 <span className="tileTitle">{newsObject.title}</span>
             </div>
             <div className="tileIconDiv">
                 <img src="/statics/cnnIcon.png" className="newsIcon"/>
             </div>
+            <NewsModal news={newsObject} closeModal={closeModal} index={index}/>
         </div>
 
     );
 };
 
 NewsTile.propTypes = {
-    newsObject: PropTypes.object.isRequired
+    openModal: PropTypes.func,
+    closeModal: PropTypes.func,
+    newsObject: PropTypes.object.isRequired,
+    index: PropTypes.number
 };

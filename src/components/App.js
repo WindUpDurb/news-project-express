@@ -21,6 +21,13 @@ class App extends React.Component {
                 </ScrollToTop>
                 {loadingSpinner}
                 {this.props.children}
+                <script>
+                    import * as material from "../../node_modules/bootstrap-material-design/dist/js/material.min";
+                    import $ from "jquery";
+                    $(document).ready(function () {
+                    $.material.init()
+                });
+                </script>
             </div>
         );
     }

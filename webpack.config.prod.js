@@ -37,7 +37,11 @@ export default {
         new webpack.DefinePlugin(GLOBALS),
         new ExtractTextPlugin("style.css"),
         new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.UglifyJsPlugin()
+        new webpack.optimize.UglifyJsPlugin(),
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery"
+        })
     ],
     //this section tells webpack what file types it should handle
     module: {
