@@ -21,6 +21,8 @@
     height: 200px;
     display: flex;
     flex-direction: column-reverse;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .tabDiv {
@@ -39,11 +41,15 @@
 
 .tilePublished {
     font-size: 1em;
-    color: #E5E7E6;
+    color: #141301;
 }
 
 .newsDescription {
     font-size: 1.2em;
+}
+
+#newsContainer {
+    padding-top: 2%;
 }
 
 .publishedDiv {
@@ -79,7 +85,7 @@
 }
 
 .tileTitle {
-    color: #E5E7E6;
+    color: #6B2B06;
     font-size: 1.4em;
     cursor: pointer;
 }
@@ -92,7 +98,7 @@
     visibility: hidden;
     opacity: 0;
     transition: opacity 1s;
-    background: rgba(107,43,6,0.6);
+    background: rgba(239,239,239,0.6);
     height: 100px;
     width: 100%;
 }

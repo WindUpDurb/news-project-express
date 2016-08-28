@@ -6,9 +6,9 @@ import * as types from "../actions/actionTypes";
 
 export const newsReducer = (state = NewsDirectory, action) => {
     switch(action.type) {
-        case types.DISPATCH_CNN:
+        case types.DISPATCH_NEWS:
             return (
-               Object.assign({}, state, {CNN: action.arrayOfNews})
+               Object.assign({}, state, {[action.source]: action.arrayOfNews})
             );
         default:
             return state;

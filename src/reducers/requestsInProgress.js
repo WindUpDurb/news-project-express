@@ -22,5 +22,3 @@ export default function requestStatusReducer(state = initialState.requestsInProg
             return state;
     }
 }
-
-

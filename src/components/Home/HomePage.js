@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 import * as NewsActions from "../../actions/NewsActions";
 import {bindActionCreators} from "redux";
 import {NewsTile} from "../common/NewsTile";
-//import $ from "jquery";
+import * as FunctionTools from "../../actions/FunctionTools";
 
 class HomePage extends React.Component {
     constructor(props) {
@@ -20,21 +20,19 @@ class HomePage extends React.Component {
     }
 
     componentWillMount() {
-        this.props.NewsActions.retrieveFromCNN();
+        this.props.NewsActions.retrieveFrom("CNN");
+        this.props.NewsActions.retrieveFrom("IGN");
     }
 
 
     openModal(index) {
-        console.log("Index: ", index)
-        console.log(this.state.currentModal);
         this.setState({currentModal: index});
-        console.log(this.state.currentModal);
     }
     
 
     render() {
-        let CNN;
-        if (this.props.CNN) CNN = this.props.CNN.map((item, index) => {
+        let aggregateNews;
+        if (this.props.aggregateNews) aggregateNews = this.props.aggregateNews.map((item, index) => {
             return (
                 <NewsTile newsObject={item} index={index} currentModal={this.state.currentModal}
                              openModal={this.openModal} key={index}/>
@@ -44,8 +42,8 @@ class HomePage extends React.Component {
             <div>
                 <HomeHeader/>
                 <div className="container">
-                    <div className="row">
-                        {CNN}
+                    <div id="newsContainer" className="row">
+                        {aggregateNews}
                     </div>
                 </div>
             </div>
@@ -55,14 +53,14 @@ class HomePage extends React.Component {
 
 HomePage.propTypes = {
     NewsActions: PropTypes.object,
-    CNN: PropTypes.array
+    aggregateNews: PropTypes.array
 };
 
 function mapStateToProps (state, ownProps) {
-    let CNN;
-    if (state.newsDirectory && state.newsDirectory.CNN) CNN = state.newsDirectory.CNN;
+    let aggregateNews;
+    if (state.newsDirectory) aggregateNews = FunctionTools.aggregateDirectories(state.newsDirectory);
     return {
-        CNN
+        aggregateNews
     };
 }
 

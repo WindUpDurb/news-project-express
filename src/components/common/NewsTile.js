@@ -4,10 +4,15 @@ import React, {PropTypes} from "react";
 import {NewsModal} from "./NewsModal";
 
 export const NewsTile = ({newsObject, openModal, currentModal,index}) => {
+    let icon, image;
     let openInfo = () => openModal(index);
     let closeInfo = () => openModal(null);
+    if (newsObject.source === "CNN") icon = <img src="/statics/cnnIcon.png" className="newsIcon"/>;
+    if (newsObject.source === "CNN") image = newsObject.image;
+    if (newsObject.source === "IGN") icon = <img src="/statics/ignIcon.png" className="newsIcon"/>;
+    if (newsObject.source === "IGN") image = "/statics/ignImage.png";
     return (
-        <div style={{backgroundImage: `url(${newsObject.image})`}} className="col-xs-4 col-md-3 newsTile">
+        <div style={{backgroundImage: `url(${image})`}} className="col-xs-4 col-md-3 newsTile">
             <div className="newsTileInfo text-center">
                 <span onClick={openInfo} className="tileTitle">{newsObject.title}</span>
                 <br/>
@@ -16,7 +21,7 @@ export const NewsTile = ({newsObject, openModal, currentModal,index}) => {
                 </div>
             </div>
             <div className="tileIconDiv">
-                <img src="/statics/cnnIcon.png" className="newsIcon"/>
+                {icon}
             </div>
             <NewsModal closeModal={closeInfo} index={index} currentModal={currentModal} news={newsObject}/>
         </div>

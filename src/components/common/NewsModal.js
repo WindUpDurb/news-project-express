@@ -4,17 +4,21 @@ import React, {PropTypes} from "react";
 import {SkyLightStateless} from "react-skylight";
 
 export const NewsModal = ({news, currentModal, index, closeModal}) => {
-    let description, open;
+    let description, open, icon, image;
+    let style = {height: "auto", width: "100%"};
     if (index === currentModal) open = true;
     if (news && news.description) description = news.description;
-    let style = {height: "auto", width: "100%"};
+    if (news && news.source === "CNN") icon = <img src="/statics/cnnIcon.png" className="newsIcon"/>;
+    if (news && news.source === "CNN") image = <img src={news.image} className="img-responsive" />;
+    if (news && news.source === "IGN") icon = <img src="/statics/ignIcon.png" className="newsIcon"/>;
+    if (news && news.source === "IGN") image = <img src="/statics/ignImage.png" className="img-responsive" />;
     return (
           <SkyLightStateless onCloseClicked={closeModal}
                              isVisible={open}
                              dialogStyles={style}>
               <div className="row">
-                  <div className="col-md-6 col-md-offset-1">
-                      <img src="/statics/cnnIcon.png" className="newsIcon"/>
+                  <div className="col-xs-7 col-xs-offset-1 col-md-6 col-md-offset-1">
+                      {icon}
                       <br/>
                       <span className="modalTitle">{news.title}</span>
                       <br/>
@@ -22,14 +26,14 @@ export const NewsModal = ({news, currentModal, index, closeModal}) => {
                   </div>
               </div>
               <div style={{paddingTop: "3%"}} className="row">
-                  <div className="col-md-6 col-md-offset-1">
-                      <img src={news.image} className="img-responsive" />
+                  <div className="col-xs-7 col-xs-offset-1 col-md-6 col-md-offset-1">
+                      {image}
                       <span className="newsDescription">{description}</span>
                   </div>
               </div>
               <div style={{paddingTop: "2%"}} className="row">
                   <a href={news.link} target="_blank">
-                      <div className="text-center linkToNews col-md-6 col-md-offset-1">
+                      <div className="text-center linkToNews col-xs-7 col-xs-offset-1 col-md-6 col-md-offset-1">
                           <span className="linkToNewsText">Read</span>
                       </div>
                   </a>

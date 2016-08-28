@@ -1,26 +1,32 @@
 "use strict";
 
 import * as types from "./actionTypes";
+import * as RequestActions from "./requestStatusActions";
 import * as FunctionTools from "./FunctionTools";
+import toastr from "toastr";
 
-export function dispatchCNN(arrayOfNews) {
+export function dispatchNews(arrayOfNews, source) {
     return {
-        type: types.DISPATCH_CNN,
-        arrayOfNews
+        type: types.DISPATCH_NEWS,
+        arrayOfNews,
+        source
     };
 }
 
-export function retrieveFromCNN() {
+export function retrieveFrom(source) {
     return function(dispatch) {
-        fetch("/api/news/newsPastHours/")
+        dispatch(RequestActions.requestSent());
+        fetch(`/api/news/newsPastHours/${source}`)
             .then(response => {
+                dispatch(RequestActions.receivedRequestSuccess());
                 return response.json();
             })
             .then(parsedResponse => {
-                dispatch(dispatchCNN(parsedResponse));
+                dispatch(dispatchNews(parsedResponse, source));
             })
             .catch(error => {
-                console.log("Error: ", error);
+                dispatch(RequestActions.receivedRequestError());
+                toastr.error(error);
             });
     };
 }

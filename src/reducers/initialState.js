@@ -6,4 +6,3 @@ export const NewsDirectory = null;
 export const requestsInProgress = 0;
 
 export const activeUser = null;
-

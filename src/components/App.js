@@ -10,16 +10,14 @@ class App extends React.Component {
     }
 
     render() {
-        let loadingSpinner;
-        if (this.props.loading) {
-            loadingSpinner = <div className="loader"></div>;
-        }
         return (
             <div>
+                <header>
+                    <div aria-busy={this.props.loading} aria-label="Loading, please wait." role="progressbar"></div>
+                </header>
                 <ScrollToTop showUnder={160}>
                     <img src="/statics/scrollUp.png"/>
                 </ScrollToTop>
-                {loadingSpinner}
                 {this.props.children}
                 <script>
                     import * as material from "../../node_modules/bootstrap-material-design/dist/js/material.min";
@@ -36,12 +34,12 @@ class App extends React.Component {
 
 App.propTypes = {
     children: PropTypes.object.isRequired,
-    loading: PropTypes.number
+    loading: PropTypes.bool
 };
 
 function mapStateToProps(state, ownProps) {
     return {
-        loading: state.requestsInProgress
+        loading: state.requestsInProgress > 0
     };
 }
 

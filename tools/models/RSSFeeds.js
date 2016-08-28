@@ -3,6 +3,10 @@
 const requestNPM = require("request");
 const parseXML = require("xml2js").parseString;
 
+const sources = {
+    IGN: "http://feeds.ign.com/ign/all",
+    CNN: "http://rss.cnn.com/rss/cnn_topstories.rss"
+};
 
 const cleanCNNObject = (cnnObject) => {
     let descriptionRegex = /^(.*?)[.?!]/;
@@ -23,24 +27,40 @@ const cleanCNNObject = (cnnObject) => {
     return toReturn;
 };
 
-const cleanCNN = (XML) => {
-    //will return an array of objects
+const cleanIGNObject = (ignObject) => {
+    let toReturn = {};
+    if (ignObject.title) toReturn.title = ignObject.title;
+    if (ignObject.description) toReturn.description = ignObject.description;
+    if (ignObject.pubDate) toReturn.published = ignObject.pubDate;
+    if (ignObject.link) toReturn.link = ignObject.link;
+    toReturn.source = "IGN";
+    toReturn.image = "IGNDefault";
+    return toReturn;
+};
 
-    if (XML.rss.channel.length) return XML.rss.channel[0].item.map(item => {
+const cleanCNN = (parsedXML) => {
+    //will return an array of objects
+    if (parsedXML.rss.channel.length) return parsedXML.rss.channel[0].item.map(item => {
         return cleanCNNObject(item);
     });
-    //return cleanCNNObject(XML.rss.channel[0].item[0]);
 };
 
-const cleanXML = (source, XML) => {
-        if (source === "CNN") return cleanCNN(XML);
+const cleanIGN = (parsedXML) => {
+    if (parsedXML.rss.channel.length) return parsedXML.rss.channel[0].item.map(item => {
+        return cleanIGNObject(item);
+    });
 };
 
-export const retrievePastHours = (callback) => {
-    requestNPM("http://rss.cnn.com/rss/cnn_topstories.rss", (error, response, body) => {
+const cleanXML = (source, parsedXML) => {
+        if (source === "CNN") return cleanCNN(parsedXML);
+        if (source === "IGN") return cleanIGN(parsedXML);
+};
+
+export const retrievePastHours = (source, callback) => {
+    requestNPM(sources[source], (error, response, body) => {
         if (error) return callback(error);
         parseXML(body, (error, parsedXML) => {
-            let clean = cleanXML("CNN", parsedXML);
+            let clean = cleanXML(source, parsedXML);
             callback(error, clean);
         });
     });
