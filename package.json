@@ -43,6 +43,7 @@
     "react-router-redux": "4.0.4",
     "react-router-scroll": "^0.2.1",
     "react-scroll-up": "^1.1.5",
+    "react-skylight": "^0.4.0",
     "redux": "3.5.2",
     "redux-promise-middleware": "^3.3.2",
     "redux-thunk": "2.0.1",

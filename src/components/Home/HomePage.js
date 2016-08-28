@@ -6,14 +6,17 @@ import {connect} from "react-redux";
 import * as NewsActions from "../../actions/NewsActions";
 import {bindActionCreators} from "redux";
 import {NewsTile} from "../common/NewsTile";
-import $ from "jquery";
+//import $ from "jquery";
 
 class HomePage extends React.Component {
     constructor(props) {
         super(props);
         
+        this.state = {
+            currentModal: null
+        };
+        
         this.openModal = this.openModal.bind(this);
-        this.closeModal = this.closeModal.bind(this);
     }
 
     componentWillMount() {
@@ -22,19 +25,20 @@ class HomePage extends React.Component {
 
 
     openModal(index) {
-        $(`#newsModal${index}`).modal("show");
+        console.log("Index: ", index)
+        console.log(this.state.currentModal);
+        this.setState({currentModal: index});
+        console.log(this.state.currentModal);
     }
-
-    closeModal(index) {
-        console.log("Closing: ", index);
-        $(`#newsModal${index}`).modal("hide");
-    }
+    
 
     render() {
         let CNN;
         if (this.props.CNN) CNN = this.props.CNN.map((item, index) => {
-            return <NewsTile openModal={this.openModal} newsObject={item} 
-                             closeModal={this.closeModal} index={index} key={index}/>;   
+            return (
+                <NewsTile newsObject={item} index={index} currentModal={this.state.currentModal}
+                             openModal={this.openModal} key={index}/>
+            );
         });
         return (
             <div>

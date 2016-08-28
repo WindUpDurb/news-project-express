@@ -1,3 +1,6 @@
+#universalFont {
+    font-family: 'Source Sans Pro', sans-serif;
+}
 .cardEffect {
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
@@ -7,10 +10,61 @@
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
+.tabCross {
+    position: absolute;
+    right: 12%;
+    bottom: 40%;
+    cursor: pointer;
+}
+
 .newsTile {
     height: 200px;
     display: flex;
     flex-direction: column-reverse;
+}
+
+.tabDiv {
+    background-image: url("/statics/tab-first.png");
+    width: 40px;
+    height: 58px;
+    position: absolute;
+    left: 0;
+    top: 45%;
+    cursor: pointer;
+}
+
+.modalTitle {
+    font-size: 2em;
+}
+
+.tilePublished {
+    font-size: 1em;
+    color: #E5E7E6;
+}
+
+.newsDescription {
+    font-size: 1.2em;
+}
+
+.publishedDiv {
+    position: absolute;
+    bottom: 0;
+    right: 15px;
+}
+
+.linkToNews {
+    border: 1px solid #E5E7E6;
+    cursor: pointer;
+    color: #B7B5B3;
+}
+
+.linkToNews:hover {
+    border: 1px solid #B7B5B3;
+    color: #141301;
+}
+
+.linkToNewsText {
+    font-size: 1.5em;
 }
 
 .newsIcon {
@@ -26,7 +80,12 @@
 
 .tileTitle {
     color: #E5E7E6;
-    font-size: 1.2em;
+    font-size: 1.4em;
+    cursor: pointer;
+}
+
+.tileTitle:hover {
+    text-decoration: underline;
 }
 
 .newsTileInfo {
