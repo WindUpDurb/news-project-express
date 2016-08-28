@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 import * as NewsActions from "../../actions/NewsActions";
 import {bindActionCreators} from "redux";
 import {NewsTile} from "../common/NewsTile";
+import {ImageSourceGallery} from "../common/ImageSourceGallery";
 import * as FunctionTools from "../../actions/FunctionTools";
 
 class HomePage extends React.Component {
@@ -22,6 +23,8 @@ class HomePage extends React.Component {
     componentWillMount() {
         this.props.NewsActions.retrieveFrom("CNN");
         this.props.NewsActions.retrieveFrom("IGN");
+        this.props.NewsActions.retrieveFrom("NPR");
+        this.props.NewsActions.retrieveFrom("BGBigPicture");
     }
 
 
@@ -31,13 +34,14 @@ class HomePage extends React.Component {
     
 
     render() {
-        let aggregateNews;
+        let aggregateNews, imageGallery;
         if (this.props.aggregateNews) aggregateNews = this.props.aggregateNews.map((item, index) => {
             return (
                 <NewsTile newsObject={item} index={index} currentModal={this.state.currentModal}
                              openModal={this.openModal} key={index}/>
             );
         });
+        if (this.props.BigPicture) imageGallery = <ImageSourceGallery imageSource={this.props.BigPicture}/>;
         return (
             <div>
                 <HomeHeader/>
@@ -53,14 +57,18 @@ class HomePage extends React.Component {
 
 HomePage.propTypes = {
     NewsActions: PropTypes.object,
-    aggregateNews: PropTypes.array
+    aggregateNews: PropTypes.array,
+    BigPicture: PropTypes.array
 };
 
 function mapStateToProps (state, ownProps) {
     let aggregateNews;
+    let BigPicture;
     if (state.newsDirectory) aggregateNews = FunctionTools.aggregateDirectories(state.newsDirectory);
+    if (state.newsDirectory && state.newsDirectory.BGBigPicture) BigPicture = [...state.newsDirectory.BGBigPicture];
     return {
-        aggregateNews
+        aggregateNews,
+        BigPicture
     };
 }
 

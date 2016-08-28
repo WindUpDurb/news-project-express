@@ -11,7 +11,9 @@ const sources = {
     CNN: "http://rss.cnn.com/rss/cnn_latest.rss",
     Wired: "http://www.wired.com/feed/",
     source500PX: "https://500px.com/fresh.rss",
-    BGBigPicture: "http://www.bostonglobe.com/rss/bigpicture"
+    BGBigPicture: "http://www.bostonglobe.com/rss/bigpicture",
+    Slate: "http://feeds.slate.com/slate",
+    NPR: "http://www.npr.org/rss/rss.php?id=1001"
 };
 
 const convertToUnix = (date) => {
@@ -27,6 +29,7 @@ const cleanCNNObject = (cnnObject) => {
     }
     let toReturn = {};
     toReturn.source = "CNN";
+    toReturn.icon = "/statics/cnnIcon.png";
     if (cnnObject.title.length) toReturn.title = cnnObject.title[0];
     if (cnnObject.description.length) toReturn.description = description;
     if (cnnObject.link.length) toReturn.link = cnnObject.link[0];
@@ -37,9 +40,33 @@ const cleanCNNObject = (cnnObject) => {
     } else {
         toReturn.publishedUnix = recentArticleTime;
     }
-    if (cnnObject["media:group"].length && cnnObject["media:group"][0]["media:content"].length) {
+    if (cnnObject["media:group"] && cnnObject["media:group"].length && cnnObject["media:group"][0]["media:content"].length) {
         toReturn.image = cnnObject["media:group"][0]["media:content"][1]["$"].url;
+    } else {
+        toReturn.image = "/statics/cnnDefault.png";
     }
+    return toReturn;
+};
+
+const cleanNPRObject = (NPRObject) => {
+    let toReturn = {};
+    let imageRegex = /<img.*?src=([^">]*\/([^">]*?).png).*?>/;
+    toReturn.source = "NPR";
+    if (NPRObject.title.length) toReturn.title = NPRObject.title[0];
+    if (NPRObject.description.length) toReturn.description = NPRObject.description[0];
+    if (NPRObject.link.length) toReturn.link = NPRObject.link[0];
+    if (NPRObject.pubDate.length) {
+        toReturn.published = NPRObject.pubDate[0];
+        toReturn.publishedUnix = convertToUnix(NPRObject.pubDate[0]);
+        recentArticleTime = toReturn.publishedUnix;
+    }  else {
+        toReturn.publishedUnix = recentArticleTime;
+    }
+    if (NPRObject["content:encoded"] && imageRegex.exec(NPRObject["content:encoded"][0]).length) {
+        console.log("NPR OBject \n", NPRObject)
+        toReturn.image = imageRegex.exec(NPRObject["content:encoded"][0])[2].replace(/["']/g, "");
+    }
+    toReturn.icon = "/statics/nprIcon.png";
     return toReturn;
 };
 
@@ -47,6 +74,7 @@ const cleanBigPictureObject = (BPObject) => {
     let firstSentenceRegex = /^(.*?)[.<?!]/;
     let imageRegex = /<img.*?src=([^">]*\/([^">]*?).jpg).*?>/;
     let toReturn = {};
+    toReturn.source = "BigPicture";
     if (BPObject.description.length && firstSentenceRegex.exec(BPObject.description[0]).length) {
         toReturn.description = firstSentenceRegex.exec(BPObject.description[0])[0];
     }
@@ -62,11 +90,13 @@ const cleanBigPictureObject = (BPObject) => {
     } else {
         toReturn.publishedUnix = recentArticleTime;
     }
+    toReturn.photoSource = true;
     return toReturn;
 };
 
 const cleanIGNObject = (ignObject) => {
     let toReturn = {};
+    toReturn.icon = "/statics/ignIcon.png";
     if (ignObject.title) toReturn.title = ignObject.title;
     if (ignObject.description) toReturn.description = ignObject.description;
     if (ignObject.pubDate) {
@@ -78,8 +108,18 @@ const cleanIGNObject = (ignObject) => {
     }
     if (ignObject.link) toReturn.link = ignObject.link;
     toReturn.source = "IGN";
-    toReturn.image = "IGNDefault";
+    toReturn.image = "/statics/ignImage.png";
     return toReturn;
+};
+
+const cleanSlate = (parsedXML) => {
+    return parsedXML;
+};
+
+const cleanNPR = (parsedXML) => {
+    if (parsedXML.rss.channel.length) return parsedXML.rss.channel[0].item.map(item => {
+        return cleanNPRObject(item);
+    });
 };
 
 const cleanCNN = (parsedXML) => {
@@ -96,7 +136,6 @@ const cleanIGN = (parsedXML) => {
 };
 
 const cleanBigPicture = (parsedXML) => {
-    console.log("Parsed XML: ", parsedXML);
     if (parsedXML.rss.channel.length) return parsedXML.rss.channel[0].item.map(item => {
         return cleanBigPictureObject(item);
     });
@@ -104,7 +143,6 @@ const cleanBigPicture = (parsedXML) => {
 
 
 const clean500PX = (parsedXML) => {
-    console.log("Parsed XML: ", parsedXML);
     return parsedXML;
 };
 
@@ -113,6 +151,8 @@ const cleanXML = (source, parsedXML) => {
     if (source === "IGN") return cleanIGN(parsedXML);
     if (source === "source500PX") return clean500PX(parsedXML);
     if (source === "BGBigPicture") return cleanBigPicture(parsedXML);
+    if (source === "Slate") return cleanSlate(parsedXML);
+    if (source === "NPR") return cleanNPR(parsedXML);
 };
 
 export const retrievePastHours = (source, callback) => {

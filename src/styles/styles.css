@@ -17,6 +17,12 @@
     cursor: pointer;
 }
 
+.imageDiv {
+    height: 200px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 .newsTile {
     height: 200px;
     display: flex;
