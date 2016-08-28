@@ -5,5 +5,5 @@ export const aggregateDirectories = (newsDirectory) => {
     for (let source in newsDirectory) {
         toReturn.push(...newsDirectory[source]);
     }
-    return toReturn;
+    return toReturn.sort((a, b) => b.publishedUnix - a.publishedUnix);
 };
