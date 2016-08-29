@@ -39,7 +39,7 @@
 }
 
 .fillerTile {
-    background-color: #2a2a2a;
+    background-color: #3949AB;
     color: #fff;
     background-image: url("https://www.transparenttextures.com/patterns/gplay.png");
     height: 250px;
@@ -48,7 +48,6 @@
 }
 
 .fillerTile:hover {
-    background-color: #3949AB;
     color: #333;
     -webkit-filter: none;
     filter: none;
@@ -65,6 +64,21 @@
     height: 200px;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.navIconDiv {
+    padding-top: 2%;
+    padding-left: 1%;
+}
+
+.imageEffect {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+
+.imageEffect:hover {
+    -webkit-filter: none;
+    filter: none;
 }
 
 .newsTile {
@@ -106,7 +120,7 @@
 }
 
 #newsContainer {
-    padding-top: 2%;
+    padding-top: 3%;
 }
 
 .publishedDiv {

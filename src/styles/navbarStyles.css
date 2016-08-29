@@ -1,0 +1,30 @@
+#navbarDiv {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    /*background: linear-gradient(#444444, #3E3E3E);*/
+    background-color: rgba(68, 68, 68, 0.9);
+    color: #fff;
+    position: fixed;
+    width: 100%;
+    z-index: 10;
+    height: 5%;
+}
+
+.googleIcon {
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+}
+
+/*#navbarDiv:hover {*/
+    /*-webkit-filter: none;*/
+    /*filter: none;*/
+    /*color: #333;*/
+    /*background-color: rgba(96, 125, 139, 0.9);*/
+/*}*/
+
+/*#navbarUL li {*/
+    /*float: left;*/
+/*}*/

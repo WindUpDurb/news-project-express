@@ -1,6 +1,7 @@
 "use strict";
 import React, { PropTypes } from "react";
 import {bindActionCreators} from "redux";
+import NavbarContainer from "./common/NavbarContainer";
 import ScrollToTop from "react-scroll-up";
 import {connect} from "react-redux";
 
@@ -15,6 +16,7 @@ class App extends React.Component {
                 <header>
                     <div aria-busy={this.props.loading} aria-label="Loading, please wait." role="progressbar"></div>
                 </header>
+                <NavbarContainer />
                 <ScrollToTop showUnder={160}>
                     <img src="/statics/scrollUp.png"/>
                 </ScrollToTop>

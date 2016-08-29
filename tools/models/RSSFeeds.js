@@ -159,7 +159,8 @@ export const retrievePastHours = (source, callback) => {
     requestNPM(sources[source], (error, response, body) => {
         if (error) return callback(error);
         parseXML(body, (error, parsedXML) => {
-            let clean = cleanXML(source, parsedXML);
+            let clean;
+            if (parsedXML) clean = cleanXML(source, parsedXML);
             callback(error, clean);
         });
     });
