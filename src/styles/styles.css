@@ -29,6 +29,13 @@
     flex-direction: column-reverse;
     background-repeat: no-repeat;
     background-size: cover;
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+
+.newsTile:hover {
+    -webkit-filter: none;
+    filter: none;
 }
 
 .tabDiv {

@@ -25,7 +25,7 @@ const cleanCNNObject = (cnnObject) => {
     let description;
     if (descriptionRegex.exec(cnnObject.description[0]).length) {
         let clean = descriptionRegex.exec(cnnObject.description[0])[0];
-       //description = clean.replace(/[\\]/g, "");
+        description = clean.replace(/[\\]/g, "");
     }
     let toReturn = {};
     toReturn.source = "CNN";
