@@ -2,6 +2,7 @@
 
 import React, {PropTypes} from "react";
 import {HomeHeader} from "./homeHeader";
+import {FirstTile} from "../common/FirstTile";
 import {connect} from "react-redux";
 import * as NewsActions from "../../actions/NewsActions";
 import {bindActionCreators} from "redux";
@@ -44,9 +45,9 @@ class HomePage extends React.Component {
         if (this.props.BigPicture) imageGallery = <ImageSourceGallery imageSource={this.props.BigPicture}/>;
         return (
             <div>
-                <HomeHeader/>
-                <div className="container">
+                <div className="container-fluid">
                     <div id="newsContainer" className="row">
+                        <FirstTile/>
                         {aggregateNews}
                     </div>
                 </div>

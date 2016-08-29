@@ -10,6 +10,34 @@
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
+#windupText {
+    font-size: 2.2em;
+}
+
+#windupSubText {
+    font-size: 1.4em;
+}
+
+.firstTileTextDiv {
+    padding-top: 15%;
+}
+
+#firstTile {
+    background-color: #2a2a2a;
+    color: #fff;
+    background-image: url("https://www.transparenttextures.com/patterns/gplay.png");
+    height: 250px;
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+
+#firstTile:hover {
+    background-color: #009688;
+    color: #333;
+    -webkit-filter: none;
+    filter: none;
+}
+
 .tabCross {
     position: absolute;
     right: 12%;
@@ -24,7 +52,7 @@
 }
 
 .newsTile {
-    height: 200px;
+    height: 250px;
     display: flex;
     flex-direction: column-reverse;
     background-repeat: no-repeat;
@@ -89,6 +117,12 @@
 .newsIcon {
     width: 35px;
     height: 35px;
+}
+
+.owlIcon {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
 }
 
 .tileIconDiv {
