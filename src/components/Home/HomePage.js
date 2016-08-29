@@ -3,6 +3,7 @@
 import React, {PropTypes} from "react";
 import {HomeHeader} from "./homeHeader";
 import {FirstTile} from "../common/FirstTile";
+import {FillerTile} from "../common/FillerTile";
 import {connect} from "react-redux";
 import * as NewsActions from "../../actions/NewsActions";
 import {bindActionCreators} from "redux";
@@ -37,10 +38,14 @@ class HomePage extends React.Component {
     render() {
         let aggregateNews, imageGallery;
         if (this.props.aggregateNews) aggregateNews = this.props.aggregateNews.map((item, index) => {
-            return (
-                <NewsTile newsObject={item} index={index} currentModal={this.state.currentModal}
-                             openModal={this.openModal} key={index}/>
-            );
+            if (item.filler) {
+                return <FillerTile key={index}/>;
+            } else {
+                return (
+                    <NewsTile newsObject={item} index={index} currentModal={this.state.currentModal}
+                              openModal={this.openModal} key={index}/>
+                );
+            }
         });
         if (this.props.BigPicture) imageGallery = <ImageSourceGallery imageSource={this.props.BigPicture}/>;
         return (

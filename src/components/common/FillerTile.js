@@ -2,9 +2,12 @@
 
 import React from "react";
 
-export const FirstTile = () => {
+export const FillerTile = () => {
+    let colors = [{backgroundColor: "#3949AB", color: "#fff"}, {backgroundColor: "#d32f2f", color: "#fff"},{backgroundColor: "#FBC02D", color: "#333"} ]
+    //Get more colors
+    //Have the tile filled with quotes
     return (
-        <div id="firstTile" className="col-xs-6">
+        <div className="fillerTile col-xs-6 col-sm-3">
             <div className="row firstTileTextDiv">
                 <div className="col-md-6 col-md-offset-4">
                     <span id="windupText">Wind-Up</span>
