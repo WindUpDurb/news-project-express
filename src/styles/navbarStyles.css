@@ -12,6 +12,34 @@
     height: 50px;
 }
 
+#newsPaperIcon {
+    position: fixed;
+    top: 10px;
+    left: 48%;
+    cursor: pointer;
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+
+#newsPaperIcon:hover {
+    -webkit-filter: none;
+    filter: none;
+}
+
+#pictureIcon {
+    position: fixed;
+    top: 10px;
+    left: 52%;
+    cursor: pointer;
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+
+#pictureIcon:hover {
+    -webkit-filter: none;
+    filter: none;
+}
+
 .closeSearchDiv {
     position: absolute;
     right: 5%;
@@ -26,6 +54,11 @@
 
 .closeSearchButton:hover {
     color: #009688;
+}
+
+.navIconDiv {
+    padding-top: 3%;
+    padding-left: 3%;
 }
 
 #searchDiv {

@@ -13,12 +13,15 @@ export const NavbarPresentation = ({activeSearch, openSearch}) => {
     }
     return (
           <div id="navbarDiv">
-            <div className="row">
+              <img id="newsPaperIcon" src="/statics/newspaper.png" />
+              <img id="pictureIcon" src="/statics/picture.png" />
+              <div className="row">
                 <div className="col-md-2">
                     <div className="navIconDiv">
                         {googleIcon}
                     </div>
                 </div>
+
                 <div style={{paddingTop: "0.4%"}} className="col-md-offset-8 col-md-2">
                     <div>
                         <span style={{fontSize: "1.3em"}}>Wind-Up</span>

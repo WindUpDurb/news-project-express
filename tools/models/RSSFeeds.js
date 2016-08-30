@@ -126,6 +126,8 @@ const cleanNYTimesObject = (nytObject) => {
     if (nytObject.descriptioin) toReturn.description = nytObject.description;
     if (nytObject["media:content"] && nytObject["media:content"].length) {
         toReturn.image = nytObject["media:content"][0]["$"].url;
+    } else {
+        toReturn.image = "/statics/nyTimesDefault.png";
     }
     return toReturn;
 };
