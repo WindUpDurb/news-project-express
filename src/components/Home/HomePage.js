@@ -16,10 +16,12 @@ class HomePage extends React.Component {
         super(props);
         
         this.state = {
-            currentModal: null
+            currentModal: null,
+            activeLightbox: null
         };
         
         this.openModal = this.openModal.bind(this);
+        this.openLightBox = this.openLightBox.bind(this);
     }
 
     componentWillMount() {
@@ -45,13 +47,20 @@ class HomePage extends React.Component {
         this.setState({currentModal: news});
     }
     
+    openLightBox(photoObject) {
+        this.setState({activeLightbox: photoObject});
+    }
+    
 
     render() {
         let aggregateNews, imageGallery, currentDirectory;
         if (this.props.aggregateNews) aggregateNews = this.props.aggregateNews.map((item, index) => {
             return this.mapNews(item, index);
         });
-        if (this.props.BigPicture) imageGallery = <ImageSourceGallery imageSource={this.props.BigPicture}/>;
+        if (this.props.BigPicture) imageGallery = (
+            <ImageSourceGallery openLightBox={this.openLightBox} imageSource={this.props.BigPicture} 
+                                activeLightbox={this.state.activeLightbox} />
+        );
         this.props.activeDirectory === "photos" ? currentDirectory = imageGallery : currentDirectory = aggregateNews;
         return (
             <div>

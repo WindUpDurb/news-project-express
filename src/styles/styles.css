@@ -62,11 +62,71 @@
     cursor: pointer;
 }
 
+.photoTileText {
+    visibility: hidden;
+}
+
+.photoDateText {
+    font-size: 1.1em;
+}
+
+.photoTitleText {
+    font-size: 1.3em;
+}
+
+.lightboxTextDiv {
+    position: fixed;
+    left: 2%;
+    top: 2%;
+}
+
+.openPhotoLinkDiv {
+    position: fixed;
+    bottom: 2%;
+    width: 100%;
+}
+
+.openPhotoLink {
+    border: 1px solid #B7B5B3;
+    color: #B7B5B3;
+    width: 20%;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+}
+
+.openPhotoLink:hover {
+    color: #009688;
+    border: 1px solid #009688;
+}
+
+.openPhotoLinkText {
+    font-size: 1.5em;
+}
+
+
+.photoDateTextLB {
+    font-size: 1.1em;
+    color: #fff3e0;
+}
+
+.photoTitleTextLB {
+    font-size: 1.3em;
+    color: #fff3e0;
+}
+
 .imageDiv {
     height: 250px;
     background-repeat: no-repeat;
     background-size: cover;
+    cursor: pointer;
 }
+
+.imageDiv:hover .photoTileText {
+    visibility: visible;
+}
+
+
 
 .imageEffect {
     -webkit-filter: grayscale(100%);
@@ -238,4 +298,21 @@
 
 .lightboxTableCell {
     vertical-align: middle;
+}
+
+.closeSearchDivLB {
+    position: absolute;
+    right: 5%;
+    top: 2%;
+    color: #D2D2D2;
+}
+
+.closeSearchButtonLB {
+    font-size: 2.2em;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.closeSearchButtonLB:hover {
+    color: #009688;
 }
