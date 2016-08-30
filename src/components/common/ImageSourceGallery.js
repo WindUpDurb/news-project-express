@@ -2,7 +2,6 @@
 
 import React, {PropTypes} from "react";
 import {FillerTile} from "../common/FillerTile";
-import Lightbox from "react-images";
 
 export const ImageSourceGallery = ({imageSource}) => {
     let images = imageSource.map(item => {

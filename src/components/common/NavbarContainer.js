@@ -41,6 +41,7 @@ class NavbarContainer extends React.Component {
     
     changeDirectory(directory) {
         this.props.NewsActions.changeDirectory(directory);
+        window.scrollTo(0, 0);
     }
 
     render() {

@@ -1,7 +1,6 @@
 "use strict";
 
 import React, {PropTypes} from "react";
-import {SkyLightStateless} from "react-skylight";
 
 
 export const NewsModal = ({news, closeModal}) => {

@@ -188,7 +188,7 @@
     width: auto;
     position:fixed;
     height: auto;
-    z-index: 100;
+    z-index: 90;
     top: 15%;
     box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
     background-color: #fff;
@@ -200,7 +200,7 @@
     width: 60%;
     position:fixed;
     height: auto;
-    z-index: 100;
+    z-index: 90;
     top: 15%;
     right: 0;
     box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
@@ -213,4 +213,29 @@
 
 .authorText {
     font-size: 1.5em;
+}
+
+.lightbox {
+    z-index: 100;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0, 0, 0, .8);
+}
+
+.lightboxTable {
+    width: 100%;
+    height: 100%;
+}
+
+.centerImage {
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+}
+
+.lightboxTableCell {
+    vertical-align: middle;
 }
