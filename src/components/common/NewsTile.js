@@ -5,7 +5,7 @@ import React, {PropTypes} from "react";
 export const NewsTile = ({newsObject, openModal}) => {
     if (newsObject.photoSource) {
         return (
-            <div style={{backgroundImage: `url('${newsObject.image}')`}} className="col-md-6 imageDiv">
+            <div style={{backgroundImage: `url('${newsObject.image}')`}} className="imageEffect col-md-6 imageDiv">
 
             </div>
         );

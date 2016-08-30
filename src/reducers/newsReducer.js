@@ -10,11 +10,6 @@ export const newsReducer = (state = NewsDirectory, action) => {
             return (
                Object.assign({}, state, {[action.source]: action.arrayOfNews})
             );
-        
-        case types.CHANGE_DIRECTORY:
-            return (
-                Object.assign({}, state, {activeDirectory: action.directory})
-            );
         default:
             return state;
     }

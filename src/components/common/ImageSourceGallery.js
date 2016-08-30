@@ -1,6 +1,7 @@
 "use strict";
 
 import React, {PropTypes} from "react";
+import {FillerTile} from "../common/FillerTile";
 import Lightbox from "react-images";
 
 export const ImageSourceGallery = ({imageSource}) => {
@@ -8,16 +9,19 @@ export const ImageSourceGallery = ({imageSource}) => {
         return {src: item.image};
     });
     let imageGalley = imageSource.map((item, index) => {
-        return (
-        <div style={{backgroundImage: `url('${item.image}')`}} key={index} className="col-md-6 imageDiv">
-        </div>
-        );
+        if (item.fillerImage) {
+            return <FillerTile key={index} fillerImage/>;
+        } else {
+            return (
+                <div style={{backgroundImage: `url('${item.image}')`}} key={index} className="imageEffect col-md-6 imageDiv">
+                </div>
+            );
+        }
     });
     return (
         <div>
             {imageGalley}
-            <Lightbox backdropClosesModal images={images}/>
-        </div>  
+        </div>
     );
 };
 

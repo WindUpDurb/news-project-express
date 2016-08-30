@@ -15,7 +15,12 @@ export const NavbarPresentation = ({activeSearch, changeDirectory, activeDirecto
     }
     newsIcon = <img onClick={changeToNews} id="newsPaperIcon" className="iconHoverEffect" src="/statics/newspaper.png" />;
     photoIcon = <img onClick={changeToPhotos} id="pictureIcon" className="iconHoverEffect" src="/statics/picture.png" />;
-    activeDirectory === "photo" ? photoIcon = <img onClick={changeToPhotos} id="pictureIcon" src="/statics/picture.png" /> : newsIcon = <img onClick={changeToNews} id="newsPaperIcon" src="/statics/newspaper.png" />;
+    console.log("Active Directory: ", activeDirectory)
+    activeDirectory === "photos" ? (
+        photoIcon = <img onClick={changeToPhotos} id="pictureIcon" src="/statics/picture.png" />
+    ) : (
+        newsIcon = <img onClick={changeToNews} id="newsPaperIcon" src="/statics/newspaper.png" />
+    );
     return (
           <div id="navbarDiv">
               {newsIcon}

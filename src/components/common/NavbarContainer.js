@@ -47,7 +47,7 @@ class NavbarContainer extends React.Component {
         return (
             <div>
                 <NavbarPresentation activeSearch={this.state.searchBar} openSearch={this.openSearch}
-                                    changeDirectory={this.changeDirectory} activeDirectory={this.state.activeDirectory}/>
+                                    changeDirectory={this.changeDirectory} activeDirectory={this.props.activeDirectory}/>
                 <SearchBar googleSearch={this.googleSearch} closeSearch={this.openSearch}
                            updateSearchField={this.updateSearchField} searchBar={this.state.searchBar}
                             searchQuery={this.state.searchQuery}/>
@@ -69,8 +69,7 @@ function mapDispatchToProps(dispatch) {
 
 
 function mapStateToProps(state, ownProps) {
-    let activeDirectory;
-    if (state.newsDirectory && state.newsDirectory.activeDirectory) activeDirectory = state.newsDirectory.activeDirectory;
+    let activeDirectory = state.activeDirectory;
     return {
         activeDirectory
     };

@@ -76,10 +76,10 @@ HomePage.propTypes = {
 };
 
 function mapStateToProps (state, ownProps) {
-    let aggregateNews, BigPicture, activeDirectory;
-    if (state.newsDirectory && state.newsDirectory.activeDirectory) activeDirectory = state.newsDirectory.activeDirectory;
+    let aggregateNews, BigPicture;
+    let activeDirectory = state.activeDirectory;
     if (state.newsDirectory) aggregateNews = FunctionTools.aggregateDirectories(state.newsDirectory);
-    if (state.newsDirectory && state.newsDirectory.BGBigPicture) BigPicture = [...state.newsDirectory.BGBigPicture];
+    if (state.newsDirectory && state.newsDirectory.BGBigPicture) BigPicture = FunctionTools.addFillersToPhotoDirectory([...state.newsDirectory.BGBigPicture]);
     return {
         aggregateNews,
         activeDirectory,
