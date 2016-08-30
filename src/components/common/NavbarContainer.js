@@ -3,6 +3,8 @@
 import React, {PropTypes} from "react";
 import {connect} from "react-redux";
 import {NavbarPresentation} from "./NavbarPresentation";
+import * as NewsActions from "../../actions/NewsActions";
+import {bindActionCreators} from "redux";
 import {SearchBar} from "./SearchBar";
 
 
@@ -16,6 +18,7 @@ class NavbarContainer extends React.Component {
         this.openSearch = this.openSearch.bind(this);
         this.googleSearch = this.googleSearch.bind(this);
         this.updateSearchField = this.updateSearchField.bind(this);
+        this.changeDirectory = this.changeDirectory.bind(this);
     }
 
     openSearch(type) {
@@ -35,11 +38,16 @@ class NavbarContainer extends React.Component {
     updateSearchField(event) {
         this.setState({searchQuery: event.target.value});
     }
+    
+    changeDirectory(directory) {
+        this.props.NewsActions.changeDirectory(directory);
+    }
 
     render() {
         return (
             <div>
-                <NavbarPresentation activeSearch={this.state.searchBar} openSearch={this.openSearch}/>
+                <NavbarPresentation activeSearch={this.state.searchBar} openSearch={this.openSearch}
+                                    changeDirectory={this.changeDirectory} activeDirectory={this.state.activeDirectory}/>
                 <SearchBar googleSearch={this.googleSearch} closeSearch={this.openSearch}
                            updateSearchField={this.updateSearchField} searchBar={this.state.searchBar}
                             searchQuery={this.state.searchQuery}/>
@@ -49,14 +57,23 @@ class NavbarContainer extends React.Component {
 }
 
 NavbarContainer.propTypes = {
-
+    NewsActions: PropTypes.object,
+    activeDirectory: PropTypes.string
 };
 
-
-function mapStateToProps(state, ownProps) {
+function mapDispatchToProps(dispatch) {
     return {
-
+        NewsActions: bindActionCreators(NewsActions, dispatch)
     };
 }
 
-export default connect(mapStateToProps)(NavbarContainer);
+
+function mapStateToProps(state, ownProps) {
+    let activeDirectory;
+    if (state.newsDirectory && state.newsDirectory.activeDirectory) activeDirectory = state.newsDirectory.activeDirectory;
+    return {
+        activeDirectory
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavbarContainer);

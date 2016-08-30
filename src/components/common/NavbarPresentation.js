@@ -2,19 +2,24 @@
 
 import React, {PropTypes} from "react";
 
-export const NavbarPresentation = ({activeSearch, openSearch}) => {
+export const NavbarPresentation = ({activeSearch, changeDirectory, activeDirectory, openSearch}) => {
     let googleSearch = () => openSearch("Google");
-    let googleIcon;
+    let changeToNews = () => changeDirectory("news");
+    let changeToPhotos = () => changeDirectory("photos");
+    let googleIcon, newsIcon, photoIcon;
     if (activeSearch && activeSearch === "Google") {
         googleIcon = <img onClick={googleSearch} className="googleIcon" src="/statics/google.png"/>;
     } else {
         googleIcon = <img onClick={googleSearch} className="imageEffect googleIcon" src="/statics/google.png"/>;
 
     }
+    newsIcon = <img onClick={changeToNews} id="newsPaperIcon" className="iconHoverEffect" src="/statics/newspaper.png" />;
+    photoIcon = <img onClick={changeToPhotos} id="pictureIcon" className="iconHoverEffect" src="/statics/picture.png" />;
+    activeDirectory === "photo" ? photoIcon = <img onClick={changeToPhotos} id="pictureIcon" src="/statics/picture.png" /> : newsIcon = <img onClick={changeToNews} id="newsPaperIcon" src="/statics/newspaper.png" />;
     return (
           <div id="navbarDiv">
-              <img id="newsPaperIcon" src="/statics/newspaper.png" />
-              <img id="pictureIcon" src="/statics/picture.png" />
+              {newsIcon}
+              {photoIcon}
               <div className="row">
                 <div className="col-md-2">
                     <div className="navIconDiv">
@@ -34,6 +39,8 @@ export const NavbarPresentation = ({activeSearch, openSearch}) => {
 };
 
 NavbarPresentation.propTypes = {
+    changeDirectory: PropTypes.func,
     openSearch: PropTypes.func,
+    activeDirectory: PropTypes.string,
     activeSearch: PropTypes.string
 };

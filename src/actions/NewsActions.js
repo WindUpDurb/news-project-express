@@ -13,6 +13,19 @@ export function dispatchNews(arrayOfNews, source) {
     };
 }
 
+export function dispatchDirectoryChange(directory) {
+    return {
+        type: types.CHANGE_DIRECTORY,
+        directory
+    };
+}
+
+export function changeDirectory(directory) {
+    return function (dispatch) {
+        dispatch(dispatchDirectoryChange(directory));  
+    };
+}
+
 export function retrieveFrom(source) {
     return function(dispatch) {
         dispatch(RequestActions.requestSent());

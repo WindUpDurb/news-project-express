@@ -12,18 +12,21 @@
     height: 50px;
 }
 
+.iconHoverEffect {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+
+.iconHoverEffect:hover {
+    -webkit-filter: none;
+    filter: none;
+}
+
 #newsPaperIcon {
     position: fixed;
     top: 10px;
     left: 48%;
     cursor: pointer;
-    -webkit-filter: grayscale(100%);
-    filter: grayscale(100%);
-}
-
-#newsPaperIcon:hover {
-    -webkit-filter: none;
-    filter: none;
 }
 
 #pictureIcon {
@@ -31,13 +34,6 @@
     top: 10px;
     left: 52%;
     cursor: pointer;
-    -webkit-filter: grayscale(100%);
-    filter: grayscale(100%);
-}
-
-#pictureIcon:hover {
-    -webkit-filter: none;
-    filter: none;
 }
 
 .closeSearchDiv {
@@ -57,8 +53,8 @@
 }
 
 .navIconDiv {
-    padding-top: 3%;
-    padding-left: 3%;
+    padding-top: 5%;
+    padding-left: 8%;
 }
 
 #searchDiv {

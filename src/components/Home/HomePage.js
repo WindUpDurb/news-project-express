@@ -26,11 +26,20 @@ class HomePage extends React.Component {
         this.props.NewsActions.retrieveFrom("CNN");
         this.props.NewsActions.retrieveFrom("IGN");
         this.props.NewsActions.retrieveFrom("NYTimes");
-        this.props.NewsActions.retrieveFrom("NYTimesInternational");
+        //this.props.NewsActions.retrieveFrom("NYTimesInternational");
         this.props.NewsActions.retrieveFrom("NPR");
         this.props.NewsActions.retrieveFrom("BGBigPicture");
     }
 
+    mapNews (item, index) {
+        if (item.filler) {
+            return <FillerTile key={index}/>;
+        } else {
+            return (
+                <NewsTile newsObject={item} openModal={this.openModal} key={index}/>
+            );
+        }
+    }
 
     openModal(news) {
         this.setState({currentModal: news});
@@ -38,24 +47,19 @@ class HomePage extends React.Component {
     
 
     render() {
-        let aggregateNews, imageGallery, newsModal;
+        let aggregateNews, imageGallery, currentDirectory;
         if (this.props.aggregateNews) aggregateNews = this.props.aggregateNews.map((item, index) => {
-            if (item.filler) {
-                return <FillerTile key={index}/>;
-            } else {
-                return (
-                    <NewsTile newsObject={item} openModal={this.openModal} key={index}/>
-                );
-            }
+            return this.mapNews(item, index);
         });
         if (this.props.BigPicture) imageGallery = <ImageSourceGallery imageSource={this.props.BigPicture}/>;
+        this.props.activeDirectory === "photos" ? currentDirectory = imageGallery : currentDirectory = aggregateNews;
         return (
             <div>
                 <div className="container-fluid">
                     <div id="newsContainer" className="row">
                         <FirstTile/>
                         <NewsModal closeModal={this.openModal} news={this.state.currentModal}/>
-                        {aggregateNews}
+                        {currentDirectory}
                     </div>
                 </div>
             </div>
@@ -63,19 +67,22 @@ class HomePage extends React.Component {
     }
 }
 
+
 HomePage.propTypes = {
+    activeDirectory: PropTypes.string,
     NewsActions: PropTypes.object,
     aggregateNews: PropTypes.array,
     BigPicture: PropTypes.array
 };
 
 function mapStateToProps (state, ownProps) {
-    let aggregateNews;
-    let BigPicture;
+    let aggregateNews, BigPicture, activeDirectory;
+    if (state.newsDirectory && state.newsDirectory.activeDirectory) activeDirectory = state.newsDirectory.activeDirectory;
     if (state.newsDirectory) aggregateNews = FunctionTools.aggregateDirectories(state.newsDirectory);
     if (state.newsDirectory && state.newsDirectory.BGBigPicture) BigPicture = [...state.newsDirectory.BGBigPicture];
     return {
         aggregateNews,
+        activeDirectory,
         BigPicture
     };
 }

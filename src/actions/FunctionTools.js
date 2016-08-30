@@ -1,5 +1,7 @@
 "use strict";
 
+import React from "react";
+
 export const aggregateDirectories = (newsDirectory) => {
     let toReturn = [];
     let counter = 0;
