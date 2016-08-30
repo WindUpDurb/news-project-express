@@ -19,7 +19,7 @@ class App extends React.Component {
                 </header>
                 <NavbarContainer />
                 <ScrollToTop showUnder={160}>
-                    <img src="/statics/scrollUp.png"/>
+                    <img src="/statics/up.png"/>
                 </ScrollToTop>
                 {this.props.children}
                 <script>

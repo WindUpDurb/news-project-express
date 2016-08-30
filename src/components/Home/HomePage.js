@@ -25,6 +25,8 @@ class HomePage extends React.Component {
     componentWillMount() {
         this.props.NewsActions.retrieveFrom("CNN");
         this.props.NewsActions.retrieveFrom("IGN");
+        this.props.NewsActions.retrieveFrom("NYTimes");
+        this.props.NewsActions.retrieveFrom("NYTimesInternational");
         this.props.NewsActions.retrieveFrom("NPR");
         this.props.NewsActions.retrieveFrom("BGBigPicture");
     }
