@@ -23,6 +23,7 @@
 }
 
 #firstTile {
+    border: 1px solid black;
     background-color: #2a2a2a;
     color: #fff;
     background-image: url("https://www.transparenttextures.com/patterns/gplay.png");
@@ -39,6 +40,7 @@
 }
 
 .fillerTile {
+    border: 1px solid black;
     background-color: #3949AB;
     color: #fff;
     background-image: url("https://www.transparenttextures.com/patterns/gplay.png");
@@ -77,6 +79,7 @@
 }
 
 .newsTile {
+    border: 1px solid black;
     height: 250px;
     display: flex;
     flex-direction: column-reverse;
@@ -157,7 +160,7 @@
 }
 
 .tileTitle {
-    color: #6B2B06;
+    color: #009688;
     font-size: 1.4em;
     cursor: pointer;
 }
