@@ -1,9 +1,8 @@
 "use strict";
 
 import React, {PropTypes} from "react";
-import {NewsModal} from "./NewsModal";
 
-export const NewsTile = ({newsObject, openModal, currentModal,index}) => {
+export const NewsTile = ({newsObject, openModal}) => {
     if (newsObject.photoSource) {
         return (
             <div style={{backgroundImage: `url('${newsObject.image}')`}} className="col-md-6 imageDiv">
@@ -12,8 +11,7 @@ export const NewsTile = ({newsObject, openModal, currentModal,index}) => {
         );
     } else {
         let icon, image;
-        let openInfo = () => openModal(index);
-        let closeInfo = () => openModal(null);
+        let openInfo = () => openModal(newsObject);
         if (newsObject.icon) icon = newsObject.icon;
         if (newsObject.image) image = newsObject.image;
         return (
@@ -28,7 +26,6 @@ export const NewsTile = ({newsObject, openModal, currentModal,index}) => {
                 <div className="tileIconDiv">
                     <img src={icon} className="newsIcon"/>
                 </div>
-                <NewsModal closeModal={closeInfo} index={index} currentModal={currentModal} news={newsObject}/>
             </div>
 
         );

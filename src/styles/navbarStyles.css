@@ -9,7 +9,33 @@
     position: fixed;
     width: 100%;
     z-index: 10;
-    height: 5%;
+    height: 50px;
+}
+
+.closeSearchDiv {
+    position: absolute;
+    right: 5%;
+    top: 1%;
+}
+
+.closeSearchButton {
+    font-size: 1.5em;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.closeSearchButton:hover {
+    color: #009688;
+}
+
+#searchDiv {
+    position: fixed;
+    padding: 1%;
+    top: 50px;
+    z-index: 10;
+    height: auto;
+    width: 30%;
+    background-color: rgba(68, 68, 68, 0.9);
 }
 
 .googleIcon {

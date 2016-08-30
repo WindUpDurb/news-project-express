@@ -1,7 +1,7 @@
 "use strict";
 
 import React, {PropTypes} from "react";
-import {HomeHeader} from "./homeHeader";
+import {NewsModal} from "../common/NewsModal";
 import {FirstTile} from "../common/FirstTile";
 import {FillerTile} from "../common/FillerTile";
 import {connect} from "react-redux";
@@ -30,20 +30,19 @@ class HomePage extends React.Component {
     }
 
 
-    openModal(index) {
-        this.setState({currentModal: index});
+    openModal(news) {
+        this.setState({currentModal: news});
     }
     
 
     render() {
-        let aggregateNews, imageGallery;
+        let aggregateNews, imageGallery, newsModal;
         if (this.props.aggregateNews) aggregateNews = this.props.aggregateNews.map((item, index) => {
             if (item.filler) {
                 return <FillerTile key={index}/>;
             } else {
                 return (
-                    <NewsTile newsObject={item} index={index} currentModal={this.state.currentModal}
-                              openModal={this.openModal} key={index}/>
+                    <NewsTile newsObject={item} openModal={this.openModal} key={index}/>
                 );
             }
         });
@@ -53,6 +52,7 @@ class HomePage extends React.Component {
                 <div className="container-fluid">
                     <div id="newsContainer" className="row">
                         <FirstTile/>
+                        <NewsModal closeModal={this.openModal} news={this.state.currentModal}/>
                         {aggregateNews}
                     </div>
                 </div>

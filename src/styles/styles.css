@@ -185,3 +185,26 @@
     opacity: 1;
 }
 
+.customModal {
+    min-height: 400px;
+    width: auto;
+    position:fixed;
+    height: auto;
+    z-index: 100;
+    top: 15%;
+    box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+    background-color: #fff;
+}
+
+#customModalNews {
+    padding: 1%;
+    min-height: 400px;
+    width: 60%;
+    position:fixed;
+    height: auto;
+    z-index: 100;
+    top: 15%;
+    right: 0;
+    box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+    background-color: #fff;
+}

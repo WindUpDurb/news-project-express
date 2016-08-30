@@ -3,6 +3,7 @@ import React, { PropTypes } from "react";
 import {bindActionCreators} from "redux";
 import NavbarContainer from "./common/NavbarContainer";
 import ScrollToTop from "react-scroll-up";
+import {CustomModal} from "./common/CustomModal";
 import {connect} from "react-redux";
 
 class App extends React.Component {
