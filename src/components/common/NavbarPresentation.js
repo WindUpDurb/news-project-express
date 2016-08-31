@@ -2,12 +2,12 @@
 
 import React, {PropTypes} from "react";
 
-export const NavbarPresentation = ({activeSearch, changeDirectory, activeDirectory, openSearch}) => {
+export const NavbarPresentation = ({activeSearch, searchType, changeDirectory, activeDirectory, openSearch}) => {
     let googleSearch = () => openSearch("Google");
     let changeToNews = () => changeDirectory("news");
     let changeToPhotos = () => changeDirectory("photos");
     let googleIcon, newsIcon, photoIcon;
-    if (activeSearch && activeSearch === "Google") {
+    if (activeSearch && searchType === "Google") {
         googleIcon = <img onClick={googleSearch} className="googleIcon" src="/statics/google.png"/>;
     } else {
         googleIcon = <img onClick={googleSearch} className="imageEffect googleIcon" src="/statics/google.png"/>;
@@ -15,7 +15,6 @@ export const NavbarPresentation = ({activeSearch, changeDirectory, activeDirecto
     }
     newsIcon = <img onClick={changeToNews} id="newsPaperIcon" className="iconHoverEffect" src="/statics/newspaper.png" />;
     photoIcon = <img onClick={changeToPhotos} id="pictureIcon" className="iconHoverEffect" src="/statics/picture.png" />;
-    console.log("Active Directory: ", activeDirectory)
     activeDirectory === "photos" ? (
         photoIcon = <img onClick={changeToPhotos} id="pictureIcon" src="/statics/picture.png" />
     ) : (
@@ -34,9 +33,9 @@ export const NavbarPresentation = ({activeSearch, changeDirectory, activeDirecto
 
                 <div style={{paddingTop: "0.4%"}} className="col-md-offset-8 col-md-2">
                     <div>
-                        <span style={{fontSize: "1.3em"}}>Wind-Up</span>
+                        <span style={{fontSize: "1.3em"}}>Imagery</span>
                     </div>
-                    <span>Something bout something</span>
+                    <span>Links to the Current World</span>
                 </div>
             </div>
         </div>
@@ -47,5 +46,6 @@ NavbarPresentation.propTypes = {
     changeDirectory: PropTypes.func,
     openSearch: PropTypes.func,
     activeDirectory: PropTypes.string,
-    activeSearch: PropTypes.string
+    searchType: PropTypes.string,
+    activeSearch: PropTypes.bool
 };

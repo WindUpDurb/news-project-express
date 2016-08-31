@@ -12,7 +12,8 @@ class NavbarContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchBar: null,
+            searchBar: false,
+            searchType: null,
             searchQuery: ""
         };
         this.openSearch = this.openSearch.bind(this);
@@ -22,10 +23,8 @@ class NavbarContainer extends React.Component {
     }
 
     openSearch(type) {
-        this.setState({searchBar: type});
-        if (type === null) {
-            this.setState({searchQuery: ""});
-        }
+        if (type === null) this.setState({searchQuery: "", searchType: null, searchBar: false});
+        if (type !== null )this.setState({searchBar: !this.state.searchBar, searchType: type});
     }
 
     googleSearch(event) {
@@ -47,11 +46,11 @@ class NavbarContainer extends React.Component {
     render() {
         return (
             <div>
-                <NavbarPresentation activeSearch={this.state.searchBar} openSearch={this.openSearch}
+                <NavbarPresentation activeSearch={this.state.searchBar} searchType={this.state.searchType} openSearch={this.openSearch}
                                     changeDirectory={this.changeDirectory} activeDirectory={this.props.activeDirectory}/>
                 <SearchBar googleSearch={this.googleSearch} closeSearch={this.openSearch}
                            updateSearchField={this.updateSearchField} searchBar={this.state.searchBar}
-                            searchQuery={this.state.searchQuery}/>
+                            searchQuery={this.state.searchQuery} searchType={this.state.searchType}/>
             </div>
         );
     }

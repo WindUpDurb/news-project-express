@@ -7,6 +7,7 @@ const moment = require("moment");
 let recentArticleTime = moment.now();
 
 const sources = {
+    ABCNewsInternational: "http://feeds.abcnews.com/abcnews/internationalheadlines",
     IGN: "http://feeds.ign.com/ign/all",
     CNN: "http://rss.cnn.com/rss/cnn_latest.rss",
     Wired: "http://www.wired.com/feed/",
@@ -119,10 +120,10 @@ const cleanNYTimesObject = (nytObject) => {
     let toReturn = {};
     toReturn.source = "NYTimes";
     toReturn.icon = "/statics/nyTimesIcon.png";
-    if (nytObject.title) toReturn.title = nytObject.title;
-    if (nytObject.link) toReturn.link = nytObject.link;
-    if (nytObject.pubDate) toReturn.published = nytObject.pubDate;
-    if (nytObject.pubDate) toReturn.publishedUnix = convertToUnix(nytObject.pubDate);
+    if (nytObject.title.length) toReturn.title = nytObject.title[0];
+    if (nytObject.link.length) toReturn.link = nytObject.link[0];
+    if (nytObject.pubDate.length) toReturn.published = nytObject.pubDate[0];
+    if (nytObject.pubDate.length) toReturn.publishedUnix = convertToUnix(nytObject.pubDate);
     if (nytObject.descriptioin) toReturn.description = nytObject.description;
     if (nytObject["media:content"] && nytObject["media:content"].length) {
         toReturn.image = nytObject["media:content"][0]["$"].url;
@@ -132,55 +133,49 @@ const cleanNYTimesObject = (nytObject) => {
     return toReturn;
 };
 
-const cleanNYTimes = (parsedXML) => {
-    if (parsedXML.rss.channel.length) return parsedXML.rss.channel[0].item.map(item => {
-        return cleanNYTimesObject(item);
-    });
+const cleanABCNewsObject = (abcObject) => {
+    let toReturn = {};
+    toReturn.source = "ABCNewsInternational";
+    toReturn.icon = "/statics/abcNewsIcon.png";
+    if (abcObject.title) toReturn.title = abcObject.title;
+    if (abcObject.link) toReturn.link = abcObject.link;
+    if (abcObject.pubDate) toReturn.published = abcObject.pubDate;
+    if (abcObject.pubDate) toReturn.publishedUnix = convertToUnix(abcObject.pubDate[0]);
+    if (abcObject.description.length) toReturn.description = abcObject.description[0];
+    if (abcObject["media:thumbnail"].length) {
+        toReturn.image = abcObject["media:thumbnail"][0]["$"].url;
+    } else {
+        toReturn.image = "/statics/abcDefault.jpg";
+    }
+    return toReturn;
 };
 
 const cleanSlate = (parsedXML) => {
     return parsedXML;
 };
 
-const cleanNPR = (parsedXML) => {
-    if (parsedXML.rss.channel.length) return parsedXML.rss.channel[0].item.map(item => {
-        return cleanNPRObject(item);
-    });
-};
-
-const cleanCNN = (parsedXML) => {
-    //will return an array of objects
-    if (parsedXML.rss.channel.length) return parsedXML.rss.channel[0].item.map(item => {
-        return cleanCNNObject(item);
-    });
-};
-
-const cleanIGN = (parsedXML) => {
-    if (parsedXML.rss.channel.length) return parsedXML.rss.channel[0].item.map(item => {
-        return cleanIGNObject(item);
-    });
-};
-
-const cleanBigPicture = (parsedXML) => {
-    if (parsedXML.rss.channel.length) return parsedXML.rss.channel[0].item.map(item => {
-        return cleanBigPictureObject(item);
-    });
-};
-
-
 const clean500PX = (parsedXML) => {
     return parsedXML;
 };
 
 const cleanXML = (source, parsedXML) => {
-    if (source === "CNN") return cleanCNN(parsedXML);
-    if (source === "IGN") return cleanIGN(parsedXML);
-    if (source === "source500PX") return clean500PX(parsedXML);
-    if (source === "BGBigPicture") return cleanBigPicture(parsedXML);
-    if (source === "Slate") return cleanSlate(parsedXML);
-    if (source === "NPR") return cleanNPR(parsedXML);
-    if (source === "NYTimes") return cleanNYTimes(parsedXML);
-    if (source === "NYTimesInternational") return cleanNYTimes(parsedXML);
+    let cleanUp;
+    if (source === "CNN") cleanUp = cleanCNNObject;
+    if (source === "IGN") cleanUp = cleanIGNObject;
+    if (source === "source500PX") cleanUp = clean500PX;
+    if (source === "BGBigPicture") cleanUp = cleanBigPictureObject;
+    if (source === "Slate") cleanUp = cleanSlate;
+    if (source === "NPR") cleanUp = cleanNPRObject;
+    if (source === "NYTimes") cleanUp = cleanNYTimesObject;
+    if (source === "NYTimesInternational") cleanUp = cleanNYTimesObject;
+    if (source === "ABCNewsInternational") cleanUp = cleanABCNewsObject;
+    if (parsedXML.rss.channel.length) return  parsedXML.rss.channel[0].item.map(item => {
+        return cleanUp(item);
+    });
+};
+
+const verifyXML = (source, parsedXML) => {
+    if (parsedXML.rss.channel.length) return cleanXML(source, parsedXML);
 };
 
 export const retrievePastHours = (source, callback) => {
@@ -188,7 +183,7 @@ export const retrievePastHours = (source, callback) => {
         if (error) return callback(error);
         parseXML(body, (error, parsedXML) => {
             let clean;
-            if (parsedXML) clean = cleanXML(source, parsedXML);
+            if (parsedXML) clean = verifyXML(source, parsedXML);
             callback(error, clean);
         });
     });

@@ -2,11 +2,11 @@
 
 import React, {PropTypes} from "react";
 
-export const SearchBar = ({searchBar, googleSearch, searchQuery, updateSearchField, closeSearch}) => {
+export const SearchBar = ({searchBar, searchType, googleSearch, searchQuery, updateSearchField, closeSearch}) => {
     let close = () => closeSearch(null);
     if (searchBar) {
         let searchLabel;
-        if (searchBar === "Google") searchLabel = "Perform a Google Search";
+        if (searchType === "Google") searchLabel = "Perform a Google Search";
         return (
             <div id="searchDiv">
                 <div className="closeSearchDiv">
@@ -27,7 +27,8 @@ export const SearchBar = ({searchBar, googleSearch, searchQuery, updateSearchFie
 };
 
 SearchBar.propTypes = {
-    searchBar: PropTypes.string,
+    searchType: PropTypes.string,
+    searchBar: PropTypes.bool,
     searchQuery: PropTypes.string,
     closeSearch: PropTypes.func,
     updateSearchField: PropTypes.func,
