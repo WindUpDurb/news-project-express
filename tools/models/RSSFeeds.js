@@ -8,6 +8,7 @@ let recentArticleTime = moment.now();
 
 const sources = {
     ABCNewsInternational: "http://feeds.abcnews.com/abcnews/internationalheadlines",
+    ABCNews: "http://feeds.abcnews.com/abcnews/usheadlines",
     IGN: "http://feeds.ign.com/ign/all",
     CNN: "http://rss.cnn.com/rss/cnn_latest.rss",
     Wired: "http://www.wired.com/feed/",
@@ -161,6 +162,7 @@ const clean500PX = (parsedXML) => {
 const cleanXML = (source, parsedXML) => {
     let cleanUp;
     if (source === "CNN") cleanUp = cleanCNNObject;
+    if (source === "Wired") return parsedXML;
     if (source === "IGN") cleanUp = cleanIGNObject;
     if (source === "source500PX") cleanUp = clean500PX;
     if (source === "BGBigPicture") cleanUp = cleanBigPictureObject;
@@ -169,6 +171,7 @@ const cleanXML = (source, parsedXML) => {
     if (source === "NYTimes") cleanUp = cleanNYTimesObject;
     if (source === "NYTimesInternational") cleanUp = cleanNYTimesObject;
     if (source === "ABCNewsInternational") cleanUp = cleanABCNewsObject;
+    if (source === "ABCNews") cleanUp = cleanABCNewsObject;
     if (parsedXML.rss.channel.length) return  parsedXML.rss.channel[0].item.map(item => {
         return cleanUp(item);
     });
