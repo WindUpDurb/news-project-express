@@ -7,6 +7,10 @@ export const NewsModal = ({news, closeModal}) => {
     if (news && news.link) {
         let description, icon, image;
         let close = () => closeModal(null);
+        let openLink = () => {
+            window.open(news.link, "_blank");
+            close();
+        };
         if (news && news.description) description = news.description;
         return (
             <div id="customModalNews">
@@ -26,7 +30,7 @@ export const NewsModal = ({news, closeModal}) => {
                     </div>
                 </div>
                 <div style={{paddingTop: "2%"}} className="row">
-                    <a href={news.link} target="_blank">
+                    <a onClick={openLink}>
                         <div className="text-center linkToNews col-xs-7 col-xs-offset-1 col-md-6 col-md-offset-1">
                             <span className="linkToNewsText">Read</span>
                         </div>
