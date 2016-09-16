@@ -23,18 +23,30 @@
 }
 
 #newsPaperIcon {
-    position: fixed;
-    top: 10px;
-    left: 48%;
     cursor: pointer;
+    margin-top: 7px;
+    margin-right: 3%;
 }
 
 #pictureIcon {
-    position: fixed;
-    top: 10px;
-    left: 52%;
+    margin-left: 3%;
+    margin-top: 7px;
     cursor: pointer;
 }
+
+/*#newsPaperIcon {*/
+    /*position: fixed;*/
+    /*top: 10px;*/
+    /*left: 48%;*/
+    /*cursor: pointer;*/
+/*}*/
+
+/*#pictureIcon {*/
+    /*position: fixed;*/
+    /*top: 10px;*/
+    /*left: 52%;*/
+    /*cursor: pointer;*/
+/*}*/
 
 .closeSearchDiv {
     position: absolute;

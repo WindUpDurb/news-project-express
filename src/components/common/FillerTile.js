@@ -26,7 +26,7 @@ export const FillerTile = ({fillerImage}) => {
         );
     } else {
         return (
-            <div style={randomColor} className="fillerTile col-xs-6 col-sm-3">
+            <div style={randomColor} className="fillerTile col-xs-6 col-sm-4 col-md-3">
                 <div className="row firstTileTextDiv">
                     <div className="col-md-10 col-md-offset-2">
                         <span className="quoteBody">{body}</span>

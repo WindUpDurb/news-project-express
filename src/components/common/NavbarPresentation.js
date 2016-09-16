@@ -22,16 +22,19 @@ export const NavbarPresentation = ({activeSearch, searchType, changeDirectory, a
     );
     return (
           <div id="navbarDiv">
-              {newsIcon}
-              {photoIcon}
               <div className="row">
-                <div className="col-md-2">
+                <div className="col-xs-2">
                     <div className="navIconDiv">
                         {googleIcon}
                     </div>
                 </div>
 
-                <div style={{paddingTop: "0.4%"}} className="col-md-offset-8 col-md-2">
+                  <div className="col-xs-offset-1 text-center col-xs-5">
+                      {newsIcon}
+                      {photoIcon}
+                  </div>
+
+                <div style={{paddingTop: "0.4%"}} className=" col-xs-4">
                     <div>
                         <span style={{fontSize: "1.3em"}}>Imagery</span>
                     </div>

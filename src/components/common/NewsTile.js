@@ -15,7 +15,7 @@ export const NewsTile = ({newsObject, openModal}) => {
         if (newsObject.icon) icon = newsObject.icon;
         if (newsObject.image) image = newsObject.image;
         return (
-            <div onClick={openInfo} style={{backgroundImage: `url(${image})`}} className="col-xs-6 col-sm-3 newsTile">
+            <div onClick={openInfo} style={{backgroundImage: `url(${image})`}} className="col-xs-6 col-sm-4 col-md-3 newsTile">
                 <div className="newsTileInfo text-center">
                     <span onClick={openInfo} className="tileTitle">{newsObject.title}</span>
                     <br/>
