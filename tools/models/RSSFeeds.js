@@ -186,6 +186,11 @@ export const retrievePastHours = (source, callback) => {
         if (error) return callback(error);
         parseXML(body, (error, parsedXML) => {
             let clean;
+            try {
+                verifyXML(source, parsedXML);
+            } catch (error) {
+                return callback(error);
+            }
             if (parsedXML) clean = verifyXML(source, parsedXML);
             callback(error, clean);
         });

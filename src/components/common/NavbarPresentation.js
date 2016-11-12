@@ -34,11 +34,13 @@ export const NavbarPresentation = ({activeSearch, searchType, changeDirectory, a
                       {photoIcon}
                   </div>
 
-                <div style={{paddingTop: "0.4%"}} className=" col-xs-4">
-                    <div>
+                <div style={{paddingTop: "0.4%"}} className="col-xs-4">
+                    <div className="pull-right">
                         <span style={{fontSize: "1.3em"}}>Imagery</span>
+                        <div>
+                            <span>Links to the Current World &nbsp; &nbsp; &nbsp;</span>
+                        </div>
                     </div>
-                    <span>Links to the Current World</span>
                 </div>
             </div>
         </div>
