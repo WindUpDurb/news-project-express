@@ -56,7 +56,6 @@
 }
 
 .closeSearchButton {
-    font-size: 1.5em;
     font-weight: bold;
     cursor: pointer;
 }
@@ -66,8 +65,19 @@
 }
 
 .navIconDiv {
-    padding-top: 5%;
-    padding-left: 8%;
+    padding-top: 5px;
+}
+
+.additionalIconDiv {
+    display: inline-block;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.newsSourceIcon {
+    display: inline-block;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 #searchDiv {
@@ -78,6 +88,7 @@
     height: auto;
     width: 30%;
     background-color: rgba(68, 68, 68, 0.9);
+    color: #D2D2D2;
 }
 
 .googleIcon {

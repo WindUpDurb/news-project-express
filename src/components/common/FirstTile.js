@@ -9,7 +9,7 @@ export const FirstTile = () => {
                 <div className="col-md-6 col-md-offset-4">
                     <span id="windupText">Imagery</span>
                     <br/>
-                    <span id="windupSubText">A link to the current world</span>
+                    <span id="windupSubText">Links to the current world</span>
                 </div>
             </div>
             <img src="/statics/owl.png" className="owlIcon"/>

@@ -23,18 +23,20 @@ export const NavbarPresentation = ({activeSearch, searchType, changeDirectory, a
     return (
           <div id="navbarDiv">
               <div className="row">
-                <div className="col-xs-2">
+                <div className="col-xs-5 col-md-4">
                     <div className="navIconDiv">
-                        {googleIcon}
+                        <div className="additionalIconDiv">{googleIcon}</div>
+                        <div className="additionalIconDiv">{newsIcon}</div>
+                        <div className="additionalIconDiv">{photoIcon}</div>
                     </div>
                 </div>
 
-                  <div className="col-xs-offset-1 text-center col-xs-5">
-                      {newsIcon}
-                      {photoIcon}
-                  </div>
+                  {/*<div className="col-xs-offset-1 text-center col-xs-5">*/}
+                      {/*{newsIcon}*/}
+                      {/*{photoIcon}*/}
+                  {/*</div>*/}
 
-                <div style={{paddingTop: "0.4%"}} className="col-xs-4">
+                <div style={{paddingTop: "0.4%"}} className="col-xs-offset-4 col-xs-4">
                     <div className="pull-right">
                         <span style={{fontSize: "1.3em"}}>Imagery</span>
                         <div>

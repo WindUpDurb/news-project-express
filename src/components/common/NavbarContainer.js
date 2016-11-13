@@ -3,6 +3,7 @@
 import React, {PropTypes} from "react";
 import {connect} from "react-redux";
 import {NavbarPresentation} from "./NavbarPresentation";
+import {DirectoryFilter} from "./DirectoryFilter";
 import * as NewsActions from "../../actions/NewsActions";
 import {bindActionCreators} from "redux";
 import {SearchBar} from "./SearchBar";
@@ -14,12 +15,16 @@ class NavbarContainer extends React.Component {
         this.state = {
             searchBar: false,
             searchType: null,
-            searchQuery: ""
+            searchQuery: "",
+            directoryFilterNews: null,
+            directoryFilterImages: null
         };
         this.openSearch = this.openSearch.bind(this);
         this.googleSearch = this.googleSearch.bind(this);
         this.updateSearchField = this.updateSearchField.bind(this);
         this.changeDirectory = this.changeDirectory.bind(this);
+        this.toggleDirectoryFilter = this.toggleDirectoryFilter.bind(this);
+        this.updateFilter = this.updateFilter.bind(this);
     }
 
     openSearch(type) {
@@ -37,20 +42,40 @@ class NavbarContainer extends React.Component {
     updateSearchField(event) {
         this.setState({searchQuery: event.target.value});
     }
+
+    updateFilter(newsSource) {
+        console.log("Connected", newsSource);
+    }
     
     changeDirectory(directory) {
-        this.props.NewsActions.changeDirectory(directory);
-        window.scrollTo(0, 0);
+        if (this.props.activeDirectory !== directory) {
+            this.props.NewsActions.changeDirectory(directory);
+            window.scrollTo(0, 0);
+        } else {
+            this.toggleDirectoryFilter(directory);
+        }
+    }
+
+    toggleDirectoryFilter(directory) {
+        if (directory === "news") this.setState({directoryFilterNews: !this.state.directoryFilterNews});
     }
 
     render() {
+        let searchBar, directoryFilter;
+        if (this.state.searchBar) searchBar = (
+            <SearchBar googleSearch={this.googleSearch} closeSearch={this.openSearch}
+                                                         updateSearchField={this.updateSearchField} searchQuery={this.state.searchQuery}
+                                                         searchType={this.state.searchType}/>
+        );
+        if (this.state.directoryFilterNews) directoryFilter = (
+            <DirectoryFilter updateFilter={this.updateFilter} closeFilter={this.toggleDirectoryFilter} directory={"news"}/>
+        );
         return (
             <div>
                 <NavbarPresentation activeSearch={this.state.searchBar} searchType={this.state.searchType} openSearch={this.openSearch}
                                     changeDirectory={this.changeDirectory} activeDirectory={this.props.activeDirectory}/>
-                <SearchBar googleSearch={this.googleSearch} closeSearch={this.openSearch}
-                           updateSearchField={this.updateSearchField} searchBar={this.state.searchBar}
-                            searchQuery={this.state.searchQuery} searchType={this.state.searchType}/>
+                {searchBar}
+                {directoryFilter}
             </div>
         );
     }
