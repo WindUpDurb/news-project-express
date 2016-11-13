@@ -4,8 +4,6 @@ const requestNPM = require("request");
 const parseXML = require("xml2js").parseString;
 const moment = require("moment");
 
-let recentArticleTime = moment.now();
-
 const sources = {
     ABCNewsInternational: "http://feeds.abcnews.com/abcnews/internationalheadlines",
     ABCNews: "http://feeds.abcnews.com/abcnews/usheadlines",
@@ -40,9 +38,8 @@ const cleanCNNObject = (cnnObject) => {
     if (cnnObject.pubDate.length) {
         toReturn.published = cnnObject.pubDate[0];
         toReturn.publishedUnix = convertToUnix(cnnObject.pubDate[0]);
-        recentArticleTime = toReturn.publishedUnix;
     } else {
-        toReturn.publishedUnix = recentArticleTime;
+        return {noPubDate: true};
     }
     if (cnnObject["media:group"] && cnnObject["media:group"].length && cnnObject["media:group"][0]["media:content"].length) {
         toReturn.image = cnnObject["media:group"][0]["media:content"][1]["$"].url;
@@ -62,9 +59,9 @@ const cleanNPRObject = (NPRObject) => {
     if (NPRObject.pubDate.length) {
         toReturn.published = NPRObject.pubDate[0];
         toReturn.publishedUnix = convertToUnix(NPRObject.pubDate[0]);
-        recentArticleTime = toReturn.publishedUnix;
     }  else {
-        toReturn.publishedUnix = recentArticleTime;
+        // toReturn.publishedUnix = recentArticleTime;
+        return {noPubDate: true};
     }
     // if (NPRObject["content:encoded"] && imageRegex.exec(NPRObject["content:encoded"][0]).length) {
     //     console.log("NPR OBject \n", NPRObject)
@@ -91,9 +88,9 @@ const cleanBigPictureObject = (BPObject) => {
     if (BPObject.pubDate.length) {
         toReturn.published = BPObject.pubDate[0];
         toReturn.publishedUnix = convertToUnix(BPObject.pubDate[0]);
-        recentArticleTime = toReturn.publishedUnix;
     } else {
-        toReturn.publishedUnix = recentArticleTime;
+        // toReturn.publishedUnix = recentArticleTime;
+        return {noPubDate: true};
     }
     toReturn.photoSource = true;
     return toReturn;
@@ -107,9 +104,8 @@ const cleanIGNObject = (ignObject) => {
     if (ignObject.pubDate) {
         toReturn.published = ignObject.pubDate;
         toReturn.publishedUnix = convertToUnix(ignObject.pubDate);
-        recentArticleTime = toReturn.publishedUnix;
     } else {
-        toReturn.publishedUnix = recentArticleTime;
+        return {noPubDate: true};
     }
     if (ignObject.link) toReturn.link = ignObject.link;
     toReturn.source = "IGN";
@@ -125,6 +121,7 @@ const cleanNYTimesObject = (nytObject) => {
     if (nytObject.link.length) toReturn.link = nytObject.link[0];
     if (nytObject.pubDate.length) toReturn.published = nytObject.pubDate[0];
     if (nytObject.pubDate.length) toReturn.publishedUnix = convertToUnix(nytObject.pubDate);
+    if (!nytObject.pubDate || !nytObject.pubDate.length) return {noPubDate: true};
     if (nytObject.descriptioin) toReturn.description = nytObject.description;
     if (nytObject["media:content"] && nytObject["media:content"].length) {
         toReturn.image = nytObject["media:content"][0]["$"].url;
@@ -142,6 +139,7 @@ const cleanABCNewsObject = (abcObject) => {
     if (abcObject.link) toReturn.link = abcObject.link;
     if (abcObject.pubDate) toReturn.published = abcObject.pubDate;
     if (abcObject.pubDate) toReturn.publishedUnix = convertToUnix(abcObject.pubDate[0]);
+    if (!abcObject.pubDate) return {noPubDate: true};
     if (abcObject.description.length) toReturn.description = abcObject.description[0];
     if (abcObject["media:thumbnail"].length) {
         toReturn.image = abcObject["media:thumbnail"][0]["$"].url;
@@ -172,9 +170,18 @@ const cleanXML = (source, parsedXML) => {
     if (source === "NYTimesInternational") cleanUp = cleanNYTimesObject;
     if (source === "ABCNewsInternational") cleanUp = cleanABCNewsObject;
     if (source === "ABCNews") cleanUp = cleanABCNewsObject;
-    if (parsedXML.rss.channel.length) return  parsedXML.rss.channel[0].item.map(item => {
-        return cleanUp(item);
-    });
+    if (parsedXML.rss.channel.length) {
+        //not using map because need to filter out articles without a pubDate
+        let toReturn = [];
+        for (let i = 0; i < parsedXML.rss.channel[0].item.length; i++) {
+            let clean = cleanUp(parsedXML.rss.channel[0].item[i]);
+            if (!clean.noPubDate) toReturn.push(clean);
+        }
+        return toReturn;
+        // return  parsedXML.rss.channel[0].item.map(item => {
+        //     return cleanUp(item);
+        // });
+    }
 };
 
 const verifyXML = (source, parsedXML) => {
@@ -189,6 +196,7 @@ export const retrievePastHours = (source, callback) => {
             try {
                 verifyXML(source, parsedXML);
             } catch (error) {
+                console.log("Error: ", error);
                 return callback(error);
             }
             if (parsedXML) clean = verifyXML(source, parsedXML);

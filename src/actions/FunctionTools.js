@@ -2,6 +2,36 @@
 
 import React from "react";
 
+function merge(left, right) {
+    let result = [],
+        leftIndex = 0,
+        rightIndex = 0;
+    while (leftIndex < left.length && rightIndex < right.length) {
+        if (left[leftIndex].publishedUnix < right[rightIndex].publishedUnix) {
+            result.push(right[rightIndex]);
+            ++rightIndex;
+        } else {
+            result.push(left[leftIndex]);
+            ++leftIndex;
+        }
+    }
+    for(; leftIndex < left.length; ++leftIndex) {
+        result.push(left[leftIndex]);
+    }
+    for(; rightIndex < right.length; ++rightIndex) {
+        result.push(right[rightIndex]);
+    }
+    return result;
+}
+
+function mergeSort(array) {
+    if (array.length < 2) return array;
+    let midpoint = Math.floor(array.length / 2),
+        left = array.slice(0, midpoint),
+        right = array.slice(midpoint, array.length);
+    return merge(mergeSort(left), mergeSort(right));
+}
+
 const shuffleArray = (array) => {
     let currentIndex = array.length;
     let temporaryValue, randomIndex;
@@ -16,6 +46,7 @@ const shuffleArray = (array) => {
 };
 
 export const aggregateDirectories = (newsDirectory) => {
+    console.log("New directory: ", newsDirectory);
     let toReturn = [];
     let counter = 0;
     for (let source in newsDirectory) {
@@ -24,12 +55,13 @@ export const aggregateDirectories = (newsDirectory) => {
             toReturn.push(...newsDirectory[source]);
         }
     }
-    //let sorted = toReturn.sort((a, b) => b.publishedUnix - a.publishedUnix);
-    let shuffled = shuffleArray(toReturn);
-    for (let i = 6; i < shuffled.length; i += 6) {
-        shuffled.splice(i, 0, {filler: true});
+    //let shuffled = shuffleArray(toReturn);
+    let sorted = mergeSort(toReturn);
+    console.log("Sorted: ", sorted);
+    for (let i = 6; i < sorted.length; i += 6) {
+        sorted.splice(i, 0, {filler: true});
     }
-    return shuffled;
+    return sorted;
 };
 
 export const addFillersToPhotoDirectory = (photoContents) => {
