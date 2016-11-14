@@ -3,9 +3,9 @@
 import React, {PropTypes} from "react";
 import {NewsSourceIcon} from "./NewsSourceIcon";
 
-export const FilterNews = ({updateFilter}) => {
+export const FilterNews = ({newsFilters, updateFilter}) => {
     let newsSources = ["CNN", "IGN", "ABCNewsInternational", "NYTimes", "NPR"].map((newsSource, index) => {
-        return <NewsSourceIcon updateFilter={updateFilter} key={index} newsSource={newsSource}/>;
+        return <NewsSourceIcon newsFilters={newsFilters} updateFilter={updateFilter} key={index} newsSource={newsSource}/>;
     });
     return (
         <div>
@@ -18,5 +18,6 @@ export const FilterNews = ({updateFilter}) => {
 };
 
 FilterNews.propTypes = {
-    updateFilter: PropTypes.func
+    updateFilter: PropTypes.func,
+    newsFilters: PropTypes.object
 };

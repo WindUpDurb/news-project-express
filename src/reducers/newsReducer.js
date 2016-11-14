@@ -13,4 +13,4 @@ export default function newsReducer (state = NewsDirectory, action) {
         default:
             return state;
     }
-};
+}

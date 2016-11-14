@@ -138,6 +138,17 @@
     filter: none;
 }
 
+.grayScaleNewsSource {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+
+.grayScaleNewsSource:hover {
+    -webkit-filter: none;
+    filter: none;
+    opacity: .15;
+}
+
 .newsTile {
     border: 1px solid black;
     height: 250px;

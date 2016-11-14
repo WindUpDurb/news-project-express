@@ -68,7 +68,8 @@ class NavbarContainer extends React.Component {
                                                          searchType={this.state.searchType}/>
         );
         if (this.state.directoryFilterNews) directoryFilter = (
-            <DirectoryFilter updateFilter={this.updateFilter} closeFilter={this.toggleDirectoryFilter} directory={"news"}/>
+            <DirectoryFilter updateFilter={this.updateFilter} closeFilter={this.toggleDirectoryFilter} directory={"news"}
+                             newsFilters={this.props.newsFilters}/>
         );
         return (
             <div>
@@ -83,6 +84,7 @@ class NavbarContainer extends React.Component {
 
 NavbarContainer.propTypes = {
     NewsActions: PropTypes.object,
+    newsFilters: PropTypes.object,
     activeDirectory: PropTypes.string
 };
 
@@ -94,9 +96,12 @@ function mapDispatchToProps(dispatch) {
 
 
 function mapStateToProps(state, ownProps) {
-    let activeDirectory = state.activeDirectory;
+    let activeDirectory = state.activeDirectory,
+        newsFilters = state.newsFilters;
+
     return {
-        activeDirectory
+        activeDirectory,
+        newsFilters
     };
 }
 

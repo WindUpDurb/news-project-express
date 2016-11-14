@@ -11,4 +11,4 @@ export default function activeDirectoryReducer (state = activeDirectory, action)
         default:
             return state;
     }
-};
+}
