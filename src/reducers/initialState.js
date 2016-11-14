@@ -2,6 +2,14 @@
 //in this file, will centralize declarations about what is in state
 
 export const NewsDirectory = null;
+export const newsFilters = {
+    NPR: false,
+    IGN: false,
+    BGBigPicture: false,
+    NYTimes: false,
+    CNN: false,
+    ABCNewsInternational: false
+};
 
 export const activeDirectory = "news";
 

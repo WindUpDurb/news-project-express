@@ -45,19 +45,17 @@ const shuffleArray = (array) => {
    return array;
 };
 
-export const aggregateDirectories = (newsDirectory) => {
-    console.log("New directory: ", newsDirectory);
+export const aggregateDirectories = (newsDirectory, filterOutObject) => {
     let toReturn = [];
     let counter = 0;
     for (let source in newsDirectory) {
-        if (source !== "BGBigPicture") {
+        if (source !== "BGBigPicture" && !filterOutObject[source]) {
             counter++;
             toReturn.push(...newsDirectory[source]);
         }
     }
     //let shuffled = shuffleArray(toReturn);
     let sorted = mergeSort(toReturn);
-    console.log("Sorted: ", sorted);
     for (let i = 6; i < sorted.length; i += 6) {
         sorted.splice(i, 0, {filler: true});
     }

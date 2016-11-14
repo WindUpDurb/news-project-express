@@ -88,7 +88,8 @@ HomePage.propTypes = {
 function mapStateToProps (state, ownProps) {
     let aggregateNews, BigPicture;
     let activeDirectory = state.activeDirectory;
-    if (state.newsDirectory) aggregateNews = FunctionTools.aggregateDirectories(state.newsDirectory);
+    let newsFilters = state.newsFilters;
+    if (state.newsDirectory) aggregateNews = FunctionTools.aggregateDirectories(state.newsDirectory, newsFilters);
     if (state.newsDirectory && state.newsDirectory.BGBigPicture) BigPicture = FunctionTools.addFillersToPhotoDirectory([...state.newsDirectory.BGBigPicture]);
     return {
         aggregateNews,

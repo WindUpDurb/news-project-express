@@ -44,7 +44,7 @@ class NavbarContainer extends React.Component {
     }
 
     updateFilter(newsSource) {
-        console.log("Connected", newsSource);
+        this.props.NewsActions.updateNewsFilter(newsSource);
     }
     
     changeDirectory(directory) {

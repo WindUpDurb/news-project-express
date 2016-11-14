@@ -26,6 +26,19 @@ export function changeDirectory(directory) {
     };
 }
 
+export function dispatchUpdateNewsFilter(newsSource) {
+    return {
+        type: types.UPDATE_NEWS_FILTER,
+        newsSource
+    };
+}
+
+export function updateNewsFilter(newsSource) {
+    return function (dispatch) {
+        dispatch(dispatchUpdateNewsFilter(newsSource));
+    };
+}
+
 export function retrieveFrom(source) {
     return function(dispatch) {
         dispatch(RequestActions.requestSent());
