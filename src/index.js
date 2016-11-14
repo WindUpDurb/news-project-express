@@ -7,6 +7,7 @@ import {Provider} from "react-redux";
 import { Router, applyRouterMiddleware, browserHistory } from "react-router";
 import useScroll from "react-router-scroll";
 import {generateRoutes} from "./routes";
+import * as NewsActions from "./actions/NewsActions";
 import "./components/Home/homeStyles.css";
 import "./styles/styles.css";
 import "./styles/preloader.css";
@@ -21,6 +22,10 @@ import "../node_modules/toastr/build/toastr.min.css";
 const store = configureStore();
 
 //store.dispatch({type: "CHECK_ACTIVE_USER"});
+
+if (localStorage.getItem("imageryNewsSavedFilters")) {
+    store.dispatch(NewsActions.updateFiltersFromStorage(localStorage.getItem("imageryNewsSavedFilters")));
+}
 
 render(
     <Provider store={store}>

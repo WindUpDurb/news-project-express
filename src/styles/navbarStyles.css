@@ -64,6 +64,14 @@
     color: #009688;
 }
 
+.saveFilterButton {
+    cursor: pointer;
+}
+
+.saveFilterButton:hover {
+    color: #009688;
+}
+
 .navIconDiv {
     padding-top: 5px;
 }

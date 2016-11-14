@@ -25,6 +25,8 @@ class NavbarContainer extends React.Component {
         this.changeDirectory = this.changeDirectory.bind(this);
         this.toggleDirectoryFilter = this.toggleDirectoryFilter.bind(this);
         this.updateFilter = this.updateFilter.bind(this);
+        this.saveFilters = this.saveFilters.bind(this);
+        this.clearSavedFilters = this.clearSavedFilters.bind(this);
     }
 
     openSearch(type) {
@@ -45,6 +47,14 @@ class NavbarContainer extends React.Component {
 
     updateFilter(newsSource) {
         this.props.NewsActions.updateNewsFilter(newsSource);
+    }
+
+    saveFilters() {
+        NewsActions.saveFilters(this.props.newsFilters);
+    }
+
+    clearSavedFilters() {
+        this.props.NewsActions.clearSavedFilters();
     }
     
     changeDirectory(directory) {
@@ -69,7 +79,8 @@ class NavbarContainer extends React.Component {
         );
         if (this.state.directoryFilterNews) directoryFilter = (
             <DirectoryFilter updateFilter={this.updateFilter} closeFilter={this.toggleDirectoryFilter} directory={"news"}
-                             newsFilters={this.props.newsFilters}/>
+                             newsFilters={this.props.newsFilters} clearSavedFilters={this.clearSavedFilters}
+                             saveFilters={this.saveFilters}/>
         );
         return (
             <div>

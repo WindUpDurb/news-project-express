@@ -13,10 +13,23 @@ export function dispatchNews(arrayOfNews, source) {
     };
 }
 
+export function updateFiltersFromStorage(filters) {
+    return {
+        type: types.FILTERS_FROM_STORAGE,
+        filters
+    };
+}
+
 export function dispatchDirectoryChange(directory) {
     return {
         type: types.CHANGE_DIRECTORY,
         directory
+    };
+}
+
+export function clearAllFilters() {
+    return {
+        type: types.CLEAR_FILTERS
     };
 }
 
@@ -36,6 +49,17 @@ export function dispatchUpdateNewsFilter(newsSource) {
 export function updateNewsFilter(newsSource) {
     return function (dispatch) {
         dispatch(dispatchUpdateNewsFilter(newsSource));
+    };
+}
+
+export function saveFilters(filters) {
+    localStorage.setItem("imageryNewsSavedFilters", JSON.stringify(filters));
+}
+
+export function clearSavedFilters() {
+    return function (dispatch) {
+        localStorage.removeItem("imageryNewsSavedFilters");
+        dispatch(clearAllFilters());
     };
 }
 
