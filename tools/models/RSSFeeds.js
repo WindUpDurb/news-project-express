@@ -10,7 +10,7 @@ const sources = {
     IGN: "http://feeds.ign.com/ign/all",
     CNN: "http://rss.cnn.com/rss/cnn_latest.rss",
     Wired: "http://www.wired.com/feed/",
-    source500PX: "https://500px.com/fresh.rss",
+    source500PXUpcoming: "https://500px.com/upcoming.rss",
     BGBigPicture: "http://www.bostonglobe.com/rss/bigpicture",
     Slate: "http://feeds.slate.com/slate",
     NPR: "http://www.npr.org/rss/rss.php?id=1001",
@@ -122,7 +122,7 @@ const cleanNYTimesObject = (nytObject) => {
     if (nytObject.pubDate.length) toReturn.published = nytObject.pubDate[0];
     if (nytObject.pubDate.length) toReturn.publishedUnix = convertToUnix(nytObject.pubDate);
     if (!nytObject.pubDate || !nytObject.pubDate.length) return {noPubDate: true};
-    if (nytObject.descriptioin) toReturn.description = nytObject.description;
+    if (nytObject.description) toReturn.description = nytObject.description;
     if (nytObject["media:content"] && nytObject["media:content"].length) {
         toReturn.image = nytObject["media:content"][0]["$"].url;
     } else {
@@ -130,6 +130,24 @@ const cleanNYTimesObject = (nytObject) => {
     }
     return toReturn;
 };
+
+const clean500PXUpcoming = (upcoming500px) => {
+    let imageRegex = /<img.*?src=([^">]*).*?>/;
+    console.log("check: \n \n \n", upcoming500px.description);
+    let toReturn = {};
+    toReturn.source = "source500PXUpcoming";
+    toReturn.icon = "/statics/500pxicon.png";
+    if (upcoming500px.title) toReturn.title = upcoming500px.title;
+    if (upcoming500px.description) toReturn.image = imageRegex.exec(upcoming500px.description)[0];
+    if (toReturn.image) toReturn.image = toReturn.image.split("\"")[1];
+    if (!toReturn.image) return {noImage: true};
+    if (upcoming500px.link) toReturn.link = upcoming500px.link;
+    if (upcoming500px.pubDate) toReturn.published = upcoming500px.pubDate[0];
+    if (upcoming500px.pubDate) toReturn.publishedUnix = convertToUnix(upcoming500px.pubDate[0].split(",")[1]);
+    toReturn.photoSource = true;
+    return toReturn;
+};
+
 
 const cleanABCNewsObject = (abcObject) => {
     let toReturn = {};
@@ -153,16 +171,12 @@ const cleanSlate = (parsedXML) => {
     return parsedXML;
 };
 
-const clean500PX = (parsedXML) => {
-    return parsedXML;
-};
-
 const cleanXML = (source, parsedXML) => {
     let cleanUp;
     if (source === "CNN") cleanUp = cleanCNNObject;
     if (source === "Wired") return parsedXML;
     if (source === "IGN") cleanUp = cleanIGNObject;
-    if (source === "source500PX") cleanUp = clean500PX;
+    if (source === "source500PXUpcoming") cleanUp = clean500PXUpcoming;
     if (source === "BGBigPicture") cleanUp = cleanBigPictureObject;
     if (source === "Slate") cleanUp = cleanSlate;
     if (source === "NPR") cleanUp = cleanNPRObject;
@@ -175,7 +189,7 @@ const cleanXML = (source, parsedXML) => {
         let toReturn = [];
         for (let i = 0; i < parsedXML.rss.channel[0].item.length; i++) {
             let clean = cleanUp(parsedXML.rss.channel[0].item[i]);
-            if (!clean.noPubDate) toReturn.push(clean);
+            if (!clean.noPubDate && !clean.noImage) toReturn.push(clean);
         }
         return toReturn;
         // return  parsedXML.rss.channel[0].item.map(item => {

@@ -46,26 +46,40 @@ const shuffleArray = (array) => {
 };
 
 export const aggregateDirectories = (newsDirectory, filterOutObject) => {
-    let toReturn = [];
+    let toReturn = {
+        news: [],
+        photos: []
+    };
     let counter = 0;
     for (let source in newsDirectory) {
-        if (source !== "BGBigPicture" && !filterOutObject[source]) {
+        if (!filterOutObject[source]) {
             counter++;
-            toReturn.push(...newsDirectory[source]);
+            if (source === "source500PXUpcoming" || source === "BGBigPicture") {
+                toReturn.photos.push(...newsDirectory[source]);
+            } else {
+                toReturn.news.push(...newsDirectory[source]);
+            }
         }
     }
     //let shuffled = shuffleArray(toReturn);
-    let sorted = mergeSort(toReturn);
-    for (let i = 6; i < sorted.length; i += 6) {
-        sorted.splice(i, 0, {filler: true});
+    if (toReturn.news.length) {
+        toReturn.news = mergeSort(toReturn.news);
+        for (let i = 6; i < toReturn.news.length; i += 6) {
+            toReturn.news.splice(i, 0, {filler: true});
+        }
     }
-    return sorted;
+
+    if (toReturn.photos.length) {
+        let sorted = mergeSort(toReturn.photos);
+        toReturn.photos = addFillersToPhotoDirectory(sorted);
+    }
+
+    return toReturn;
 };
 
 export const addFillersToPhotoDirectory = (photoContents) => {
-    let toReturn = photoContents.sort((a, b) => b.publishedUnix - a.publishedUnix);
-    for (let i = 4; i < toReturn.length; i += 5) {
-        toReturn.splice(i, 0, {fillerImage: true});
+    for (let i = 4; i < photoContents.length; i += 5) {
+        photoContents.splice(i, 0, {fillerImage: true});
     }
-    return toReturn;
+    return photoContents;
 };

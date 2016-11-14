@@ -26,6 +26,7 @@ class HomePage extends React.Component {
 
     componentWillMount() {
         this.props.NewsActions.retrieveFrom("CNN");
+        this.props.NewsActions.retrieveFrom("source500PXUpcoming");
         this.props.NewsActions.retrieveFrom("IGN");
         this.props.NewsActions.retrieveFrom("ABCNewsInternational");
         this.props.NewsActions.retrieveFrom("NYTimes");
@@ -54,15 +55,15 @@ class HomePage extends React.Component {
     
 
     render() {
-        let aggregateNews, imageGallery, currentDirectory;
-        if (this.props.aggregateNews) aggregateNews = this.props.aggregateNews.map((item, index) => {
+        let aggregatePrint, imageGallery, currentDirectory;
+        if (this.props.aggregatePrintNews) aggregatePrint = this.props.aggregatePrintNews.map((item, index) => {
             return this.mapNews(item, index);
         });
-        if (this.props.BigPicture) imageGallery = (
-            <ImageSourceGallery openLightBox={this.openLightBox} imageSource={this.props.BigPicture} 
+        if (this.props.aggregatePhotos) imageGallery = (
+            <ImageSourceGallery openLightBox={this.openLightBox} imageSource={this.props.aggregatePhotos}
                                 activeLightbox={this.state.activeLightbox} />
         );
-        this.props.activeDirectory === "photos" ? currentDirectory = imageGallery : currentDirectory = aggregateNews;
+        this.props.activeDirectory === "photos" ? currentDirectory = imageGallery : currentDirectory = aggregatePrint;
         return (
             <div>
                 <div className="container-fluid">
@@ -81,20 +82,24 @@ class HomePage extends React.Component {
 HomePage.propTypes = {
     activeDirectory: PropTypes.string,
     NewsActions: PropTypes.object,
-    aggregateNews: PropTypes.array,
-    BigPicture: PropTypes.array
+    aggregateNews: PropTypes.object,
+    aggregatePrintNews: PropTypes.array,
+    aggregatePhotos: PropTypes.array
 };
 
 function mapStateToProps (state, ownProps) {
-    let aggregateNews, BigPicture;
+    let aggregateNews, aggregatePrintNews, aggregatePhotos, BigPicture;
     let activeDirectory = state.activeDirectory;
     let newsFilters = state.newsFilters;
     if (state.newsDirectory) aggregateNews = FunctionTools.aggregateDirectories(state.newsDirectory, newsFilters);
-    if (state.newsDirectory && state.newsDirectory.BGBigPicture) BigPicture = FunctionTools.addFillersToPhotoDirectory([...state.newsDirectory.BGBigPicture]);
+    if (aggregateNews && aggregateNews.news) aggregatePrintNews = aggregateNews.news;
+    if (aggregateNews && aggregateNews.photos) aggregatePhotos = aggregateNews.photos;
+    //if (state.newsDirectory && state.newsDirectory.BGBigPicture) BigPicture = FunctionTools.addFillersToPhotoDirectory([...state.newsDirectory.BGBigPicture]);
     return {
         aggregateNews,
         activeDirectory,
-        BigPicture
+        aggregatePhotos,
+        aggregatePrintNews
     };
 }
 

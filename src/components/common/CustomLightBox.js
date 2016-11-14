@@ -3,6 +3,7 @@
 import React, {PropTypes} from "react";
 
 export const CustomLightBox = ({imageObject, closeLightbox}) => {
+    console.log("Image object: ", imageObject);
     let title, description, date;
     let openLink = () => window.open(imageObject.link, "_blank");
     if (imageObject.title) title = imageObject.title;
