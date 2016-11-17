@@ -5,6 +5,10 @@ import React, {PropTypes} from "react";
 export const NewsSourceIcon = ({newsSource, newsFilters, updateFilter}) => {
     let newsIcon, update = () => updateFilter(newsSource);
     switch(newsSource) {
+        case "TechCrunch":
+            newsFilters[newsSource] ? newsIcon = <img onClick={update} className="newsIcon grayScaleNewsSource cursorPointer" src="/statics/techCrunch.jpg"/> :
+                newsIcon = <img onClick={update} className="newsIcon cursorPointer" src="/statics/techCrunch.jpg"/>;
+            break;
         case "CNN":
             newsFilters[newsSource] ? newsIcon = <img onClick={update} className="newsIcon grayScaleNewsSource cursorPointer" src="/statics/cnnIcon.png"/> :
                 newsIcon = <img onClick={update} className="newsIcon cursorPointer" src="/statics/cnnIcon.png"/>;

@@ -15,7 +15,8 @@ const sources = {
     Slate: "http://feeds.slate.com/slate",
     NPR: "http://www.npr.org/rss/rss.php?id=1001",
     NYTimes: "http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
-    NYTimesInternational: "http://rss.nytimes.com/services/xml/rss/nyt/InternationalHome.xml"
+    NYTimesInternational: "http://rss.nytimes.com/services/xml/rss/nyt/InternationalHome.xml",
+    TechCrunch: "http://feeds.feedburner.com/TechCrunch/"
 };
 
 const convertToUnix = (date) => {
@@ -148,6 +149,29 @@ const clean500PXUpcoming = (upcoming500px) => {
     return toReturn;
 };
 
+const cleanTechCrunch = (techCrunchObject) => {
+    let toReturn = {};
+    toReturn.source = "TechCrunch";
+    toReturn.icon = "/statics/techCrunch.jpg";
+    if (techCrunchObject.title && techCrunchObject.title.length > 0) toReturn.title = techCrunchObject.title[0];
+    if (techCrunchObject.link && techCrunchObject.link.length > 0) toReturn.link = techCrunchObject.link[0];
+    if (techCrunchObject.pubDate && techCrunchObject.pubDate.length > 0) toReturn.published = techCrunchObject.pubDate[0];
+    if (techCrunchObject.pubDate && techCrunchObject.pubDate.length > 0) toReturn.publishedUnixt = convertToUnix(techCrunchObject.pubDate[0]);
+    if (!techCrunchObject.pubDate || !techCrunchObject.pubDate.length) return {noPubDate: true};
+    if (techCrunchObject.description && techCrunchObject.description.length > 0) toReturn.description = techCrunchObject.description[0];
+    if (techCrunchObject["media:content"] && techCrunchObject["media:content"].length > 0 ) {
+        for (let i = 0; i < techCrunchObject["media:content"].length; i++) {
+            console.log("check: ", techCrunchObject["media:content"]);
+            if (techCrunchObject["media:content"][i]["$"] && techCrunchObject["media:content"][i]["$"].medium === "image") {
+                if (techCrunchObject["media:content"][i]["$"].url) {
+                    toReturn.image = techCrunchObject["media:content"][i]["$"].url;
+                    break;
+                }
+            }
+        }
+    }
+    return toReturn;
+};
 
 const cleanABCNewsObject = (abcObject) => {
     let toReturn = {};
@@ -174,6 +198,7 @@ const cleanSlate = (parsedXML) => {
 const cleanXML = (source, parsedXML) => {
     let cleanUp;
     if (source === "CNN") cleanUp = cleanCNNObject;
+    if (source === "TechCrunch") cleanUp = cleanTechCrunch;
     if (source === "Wired") return parsedXML;
     if (source === "IGN") cleanUp = cleanIGNObject;
     if (source === "source500PXUpcoming") cleanUp = clean500PXUpcoming;

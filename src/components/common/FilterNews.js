@@ -4,7 +4,7 @@ import React, {PropTypes} from "react";
 import {NewsSourceIcon} from "./NewsSourceIcon";
 
 export const FilterNews = ({newsFilters, clearSavedFilters, saveFilters, updateFilter}) => {
-    let newsSources = ["CNN", "IGN", "ABCNewsInternational", "NYTimes", "NPR"].map((newsSource, index) => {
+    let newsSources = ["CNN", "IGN", "ABCNewsInternational", "NYTimes", "NPR", "TechCrunch"].map((newsSource, index) => {
         return <NewsSourceIcon newsFilters={newsFilters} updateFilter={updateFilter} key={index} newsSource={newsSource}/>;
     });
     return (
