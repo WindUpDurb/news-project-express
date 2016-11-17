@@ -16,8 +16,8 @@ class NavbarContainer extends React.Component {
             searchBar: false,
             searchType: null,
             searchQuery: "",
-            directoryFilterNews: null,
-            directoryFilterImages: null
+            directoryFilterNews: false,
+            directoryFilterImages: false
         };
         this.openSearch = this.openSearch.bind(this);
         this.googleSearch = this.googleSearch.bind(this);
@@ -30,8 +30,9 @@ class NavbarContainer extends React.Component {
     }
 
     openSearch(type) {
+        console.log("Type: ", type);
         if (type === null) this.setState({searchQuery: "", searchType: null, searchBar: false});
-        if (type !== null )this.setState({searchBar: !this.state.searchBar, searchType: type});
+        if (type !== null )this.setState({searchBar: !this.state.searchBar, searchType: type , directoryFilterNews: false, directoryFilterImages: false});
     }
 
     googleSearch(event) {
@@ -59,6 +60,7 @@ class NavbarContainer extends React.Component {
     
     changeDirectory(directory) {
         if (this.props.activeDirectory !== directory) {
+            this.setState({directoryFilterNews: false});
             this.props.NewsActions.changeDirectory(directory);
             window.scrollTo(0, 0);
         } else {
@@ -67,7 +69,7 @@ class NavbarContainer extends React.Component {
     }
 
     toggleDirectoryFilter(directory) {
-        if (directory === "news") this.setState({directoryFilterNews: !this.state.directoryFilterNews});
+        if (directory === "news") this.setState({directoryFilterNews: !this.state.directoryFilterNews, searchBar: false});
     }
 
     render() {
