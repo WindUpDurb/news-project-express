@@ -15,7 +15,7 @@ export function dispatchNews(arrayOfNews, source) {
 
 export function updateFiltersFromStorage(filters) {
     return {
-        type: types.FILTERS_FROM_STORAGE,
+        type: types.NEWS_FILTERS_FROM_STORAGE,
         filters
     };
 }
@@ -29,7 +29,7 @@ export function dispatchDirectoryChange(directory) {
 
 export function clearAllFilters() {
     return {
-        type: types.CLEAR_FILTERS
+        type: types.CLEAR_NEWS_FILTERS
     };
 }
 

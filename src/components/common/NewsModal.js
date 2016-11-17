@@ -15,7 +15,7 @@ export const NewsModal = ({news, closeModal}) => {
         return (
             <div id="customModalNews">
                 <div className="row">
-                    <div className="col-xs-7 col-xs-offset-1 col-md-10 col-md-offset-1">
+                    <div className="col-xs-10 col-xs-offset-1 col-md-10 col-md-offset-1">
                         <img src={news.icon} className="newsIcon"/>
                         <br/>
                         <span className="modalTitle">{news.title}</span>
@@ -24,14 +24,15 @@ export const NewsModal = ({news, closeModal}) => {
                     </div>
                 </div>
                 <div style={{paddingTop: "3%"}} className="row">
-                    <div className="col-xs-7 col-xs-offset-1 col-md-10 col-md-offset-1">
-                        <img src={news.image} className="img-responsive" />
+                    <div className="col-xs-10 col-xs-offset-1 col-md-10 col-md-offset-1">
+                        <img src={news.image} className="articleImage" />
+                        <br/>
                         <span className="newsDescription">{description}</span>
                     </div>
                 </div>
                 <div style={{paddingTop: "2%"}} className="row">
                     <a onClick={openLink}>
-                        <div className="text-center linkToNews col-xs-7 col-xs-offset-1 col-md-6 col-md-offset-1">
+                        <div className="text-center linkToNews col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-1">
                             <span className="linkToNewsText">Read</span>
                         </div>
                     </a>

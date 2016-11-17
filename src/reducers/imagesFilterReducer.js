@@ -3,29 +3,25 @@
 import * as types from "../actions/actionTypes";
 import * as initialState from "./initialState";
 
-const newsFiltersCleared = {
-    NPR: false,
-    IGN: false,
+const imagesFiltersCleared = {
     BGBigPicture: false,
-    NYTimes: false,
-    CNN: false,
-    ABCNewsInternational: false
+    source500PXUpcoming: false
 };
 
-export default function newsFilterReducer ( state = initialState.newsFilters, action) {
+export default function imagesFilterReducer ( state = initialState.imagesFilters, action) {
     switch(action.type) {
-        case types.NEWS_FILTERS_FROM_STORAGE:
+        case types.IMAGES_FILTERS_FROM_STORAGE:
             return (
                 Object.assign({}, state, JSON.parse(action.filters))
             );
-        case types.UPDATE_NEWS_FILTER:
+        case types.UPDATE_IMAGES_FILTER:
             return (
                 Object.assign({}, state, {[action.newsSource]: !state[action.newsSource]})
             );
 
-        case types.CLEAR_NEWS_FILTERS:
+        case types.CLEAR_IMAGES_FILTERS:
             return (
-                Object.assign({}, state, newsFiltersCleared)
+                Object.assign({}, state, imagesFiltersCleared)
             );
 
         default:

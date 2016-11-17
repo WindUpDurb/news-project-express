@@ -158,7 +158,7 @@ const cleanTechCrunch = (techCrunchObject) => {
     if (techCrunchObject.pubDate && techCrunchObject.pubDate.length > 0) toReturn.published = techCrunchObject.pubDate[0];
     if (techCrunchObject.pubDate && techCrunchObject.pubDate.length > 0) toReturn.publishedUnixt = convertToUnix(techCrunchObject.pubDate[0]);
     if (!techCrunchObject.pubDate || !techCrunchObject.pubDate.length) return {noPubDate: true};
-    if (techCrunchObject.description && techCrunchObject.description.length > 0) toReturn.description = techCrunchObject.description[0];
+    // if (techCrunchObject.description && techCrunchObject.description.length > 0) toReturn.description = techCrunchObject.description[0];
     if (techCrunchObject["media:content"] && techCrunchObject["media:content"].length > 0 ) {
         for (let i = 0; i < techCrunchObject["media:content"].length; i++) {
             console.log("check: ", techCrunchObject["media:content"]);

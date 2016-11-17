@@ -11,6 +11,11 @@ export const newsFilters = {
     ABCNewsInternational: false
 };
 
+export const imagesFilters = {
+    BGBigPicture: false,
+    source500PXUpcoming: false
+};
+
 export const activeDirectory = "news";
 
 export const requestsInProgress = 0;

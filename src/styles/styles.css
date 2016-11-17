@@ -171,7 +171,7 @@
     width: 40px;
     height: 58px;
     position: absolute;
-    left: 0;
+    left: -30px;
     top: 45%;
     cursor: pointer;
 }
@@ -271,12 +271,16 @@
     background-color: #fff;
 }
 
+.articleImage {
+    max-height: 300px;
+}
+
 #customModalNews {
     padding: 1%;
     min-height: 400px;
-    width: 60%;
+    width: 75%;
     position:fixed;
-    height: auto;
+    max-height: 75%;
     z-index: 90;
     top: 15%;
     right: 0;

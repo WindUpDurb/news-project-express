@@ -98,6 +98,7 @@ class NavbarContainer extends React.Component {
 NavbarContainer.propTypes = {
     NewsActions: PropTypes.object,
     newsFilters: PropTypes.object,
+    imageFilters: PropTypes.object,
     activeDirectory: PropTypes.string
 };
 
@@ -110,11 +111,13 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state, ownProps) {
     let activeDirectory = state.activeDirectory,
-        newsFilters = state.newsFilters;
+        newsFilters = state.newsFilters,
+        imageFilters = state.imageFilters;
 
     return {
         activeDirectory,
-        newsFilters
+        newsFilters,
+        imageFilters
     };
 }
 
