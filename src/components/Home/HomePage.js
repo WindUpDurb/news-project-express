@@ -57,6 +57,8 @@ class HomePage extends React.Component {
 
     render() {
         let aggregatePrint, imageGallery, currentDirectory;
+        console.log("Print News: ", this.props.aggregatePrintNews.length);
+        console.log("Image News: ", this.props.aggregatePhotos.length);
         if (this.props.aggregatePrintNews) aggregatePrint = this.props.aggregatePrintNews.map((item, index) => {
             return this.mapNews(item, index);
         });
@@ -91,8 +93,8 @@ HomePage.propTypes = {
 function mapStateToProps (state, ownProps) {
     let aggregateNews, aggregatePrintNews, aggregatePhotos, BigPicture;
     let activeDirectory = state.activeDirectory;
-    let newsFilters = state.newsFilters;
-    if (state.newsDirectory) aggregateNews = FunctionTools.aggregateDirectories(state.newsDirectory, newsFilters);
+    let contentFilters = state.contentFilters;
+    if (state.newsDirectory) aggregateNews = FunctionTools.aggregateDirectories(state.newsDirectory, contentFilters);
     if (aggregateNews && aggregateNews.news) aggregatePrintNews = aggregateNews.news;
     if (aggregateNews && aggregateNews.photos) aggregatePhotos = aggregateNews.photos;
     //if (state.newsDirectory && state.newsDirectory.BGBigPicture) BigPicture = FunctionTools.addFillersToPhotoDirectory([...state.newsDirectory.BGBigPicture]);

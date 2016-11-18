@@ -46,7 +46,7 @@ export function dispatchUpdateNewsFilter(newsSource) {
     };
 }
 
-export function updateNewsFilter(newsSource) {
+export function updateContentFilters(newsSource) {
     return function (dispatch) {
         dispatch(dispatchUpdateNewsFilter(newsSource));
     };

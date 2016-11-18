@@ -2,12 +2,17 @@
 
 import React, {PropTypes} from "react";
 import {FilterNews} from "./FilterNews";
+import {FilterImages} from "./FilterImages";
 
-export const DirectoryFilter = ({closeFilter, newsFilters, clearSavedFilters, saveFilters, updateFilter, directory}) => {
+export const DirectoryFilter = ({closeFilter, filters, clearSavedFilters, saveFilters, updateFilter, directory}) => {
     let filter, close = () => closeFilter(directory);
     if (directory === "news") filter = (
-        <FilterNews newsFilters={newsFilters} updateFilter={updateFilter} clearSavedFilters={clearSavedFilters}
+        <FilterNews newsFilters={filters} updateFilter={updateFilter} clearSavedFilters={clearSavedFilters}
                     saveFilters={saveFilters}/>
+    );
+    if (directory === "photos") filter = (
+        <FilterImages imageFilters={filters} updateFilter={updateFilter} saveFilters={saveFilters}
+                      clearSavedFilters={clearSavedFilters}/>
     );
     return (
         <div id="searchDiv">
@@ -27,5 +32,5 @@ DirectoryFilter.propTypes = {
     saveFilters: PropTypes.func,
     updateFilter: PropTypes.func,
     directory: PropTypes.string,
-    newsFilters: PropTypes.object
+    filters: PropTypes.object
 };

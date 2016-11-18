@@ -24,13 +24,12 @@ class NavbarContainer extends React.Component {
         this.updateSearchField = this.updateSearchField.bind(this);
         this.changeDirectory = this.changeDirectory.bind(this);
         this.toggleDirectoryFilter = this.toggleDirectoryFilter.bind(this);
-        this.updateFilter = this.updateFilter.bind(this);
+        this.updateContentFilters = this.updateContentFilters.bind(this);
         this.saveFilters = this.saveFilters.bind(this);
         this.clearSavedFilters = this.clearSavedFilters.bind(this);
     }
 
     openSearch(type) {
-        console.log("Type: ", type);
         if (type === null) this.setState({searchQuery: "", searchType: null, searchBar: false});
         if (type !== null )this.setState({searchBar: !this.state.searchBar, searchType: type , directoryFilterNews: false, directoryFilterImages: false});
     }
@@ -46,12 +45,13 @@ class NavbarContainer extends React.Component {
         this.setState({searchQuery: event.target.value});
     }
 
-    updateFilter(newsSource) {
-        this.props.NewsActions.updateNewsFilter(newsSource);
+    updateContentFilters(newsSource) {
+        this.props.NewsActions.updateContentFilters(newsSource);
     }
 
+
     saveFilters() {
-        NewsActions.saveFilters(this.props.newsFilters);
+        NewsActions.saveFilters(this.props.contentFilters);
     }
 
     clearSavedFilters() {
@@ -70,6 +70,7 @@ class NavbarContainer extends React.Component {
 
     toggleDirectoryFilter(directory) {
         if (directory === "news") this.setState({directoryFilterNews: !this.state.directoryFilterNews, searchBar: false});
+        if (directory === "photos") this.setState({directoryFilterImages: !this.state.directoryFilterImages, searchBar: false});
     }
 
     render() {
@@ -80,8 +81,13 @@ class NavbarContainer extends React.Component {
                                                          searchType={this.state.searchType}/>
         );
         if (this.state.directoryFilterNews) directoryFilter = (
-            <DirectoryFilter updateFilter={this.updateFilter} closeFilter={this.toggleDirectoryFilter} directory={"news"}
-                             newsFilters={this.props.newsFilters} clearSavedFilters={this.clearSavedFilters}
+            <DirectoryFilter updateFilter={this.updateContentFilters} closeFilter={this.toggleDirectoryFilter} directory={"news"}
+                             filters={this.props.contentFilters} clearSavedFilters={this.clearSavedFilters}
+                             saveFilters={this.saveFilters}/>
+        );
+        if (this.state.directoryFilterImages) directoryFilter = (
+            <DirectoryFilter updateFilter={this.updateContentFilters} closeFilter={this.toggleDirectoryFilter} directory={"photos"}
+                             filters={this.props.contentFilters} clearSavedFilters={this.clearSavedFilters}
                              saveFilters={this.saveFilters}/>
         );
         return (
@@ -97,8 +103,7 @@ class NavbarContainer extends React.Component {
 
 NavbarContainer.propTypes = {
     NewsActions: PropTypes.object,
-    newsFilters: PropTypes.object,
-    imageFilters: PropTypes.object,
+    contentFilters: PropTypes.object,
     activeDirectory: PropTypes.string
 };
 
@@ -111,13 +116,10 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state, ownProps) {
     let activeDirectory = state.activeDirectory,
-        newsFilters = state.newsFilters,
-        imageFilters = state.imageFilters;
-
+        contentFilters = state.contentFilters;
     return {
         activeDirectory,
-        newsFilters,
-        imageFilters
+        contentFilters
     };
 }
 

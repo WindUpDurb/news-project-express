@@ -2,17 +2,13 @@
 //in this file, will centralize declarations about what is in state
 
 export const NewsDirectory = null;
-export const newsFilters = {
+export const filters = {
     NPR: false,
     IGN: false,
     BGBigPicture: false,
     NYTimes: false,
     CNN: false,
-    ABCNewsInternational: false
-};
-
-export const imagesFilters = {
-    BGBigPicture: false,
+    ABCNewsInternational: false,
     source500PXUpcoming: false
 };
 

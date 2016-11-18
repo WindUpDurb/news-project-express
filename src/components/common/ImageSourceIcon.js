@@ -2,12 +2,16 @@
 
 import React, {PropTypes} from "react";
 
-export const ImageSourceIcon = ({newsSource, newsFilters, updateFilter}) => {
-    let newsIcon, update = () => updateFilter(newsSource);
-    switch(newsSource) {
-        case "TechCrunch":
-            newsFilters[newsSource] ? newsIcon = <img onClick={update} className="newsIcon grayScaleNewsSource cursorPointer" src="/statics/techCrunch.jpg"/> :
-                newsIcon = <img onClick={update} className="newsIcon cursorPointer" src="/statics/techCrunch.jpg"/>;
+export const ImageSourceIcon = ({imageSource, newsFilters, updateFilter}) => {
+    let newsIcon, update = () => updateFilter(imageSource);
+    switch(imageSource) {
+        case "BGBigPicture":
+            newsFilters[imageSource] ? newsIcon = <img onClick={update} className="newsIcon grayScaleNewsSource cursorPointer" src="/statics/bgBigPictureIcon.png"/> :
+                newsIcon = <img onClick={update} className="newsIcon cursorPointer" src="/statics/bgBigPictureIcon.png"/>;
+            break;
+        case "source500PXUpcoming":
+            newsFilters[imageSource] ? newsIcon = <img onClick={update} className="newsIcon grayScaleNewsSource cursorPointer" src="/statics/500pxicon.png"/> :
+                newsIcon = <img onClick={update} className="newsIcon cursorPointer" src="/statics/500pxicon.png"/>;
             break;
         default:
             newsIcon = null;
@@ -20,7 +24,7 @@ export const ImageSourceIcon = ({newsSource, newsFilters, updateFilter}) => {
 };
 
 ImageSourceIcon.propTypes = {
-    newsSource: PropTypes.string,
+    imageSource: PropTypes.string,
     updateFilter: PropTypes.func,
     newsFilters: PropTypes.object
 };

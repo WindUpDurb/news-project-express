@@ -7,6 +7,7 @@ const RSSFeeds = require("../models/RSSFeeds");
 
 router.get("/newsPastHours/:source", (request, response) => {
    RSSFeeds.retrievePastHours(request.params.source, (error, data) => {
+       console.log("Data: ", data);
        if (error || data.status === "ERROR") return response.status(400).send(error || data.statusInfo);
        response.send(data);
    });

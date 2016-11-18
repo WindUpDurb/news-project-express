@@ -1,15 +1,15 @@
 "use strict";
 
 import React, {PropTypes} from "react";
-import {NewsSourceIcon} from "./NewsSourceIcon";
+import {ImageSourceIcon} from "./ImageSourceIcon";
 
-export const FilterNews = ({newsFilters, clearSavedFilters, saveFilters, updateFilter}) => {
-    let newsSources = ["CNN", "IGN", "ABCNewsInternational", "NYTimes", "NPR", "TechCrunch"].map((newsSource, index) => {
-        return <NewsSourceIcon newsFilters={newsFilters} updateFilter={updateFilter} key={index} newsSource={newsSource}/>;
+export const FilterImages = ({imageFilters, clearSavedFilters, saveFilters, updateFilter}) => {
+    let newsSources = ["BGBigPicture", "source500PXUpcoming"].map((imageSource, index) => {
+        return <ImageSourceIcon newsFilters={imageFilters} updateFilter={updateFilter} key={index} imageSource={imageSource}/>;
     });
     return (
         <div>
-            <div style={{position: "absolute", left: "5px", top: "4px"}}>News Sources</div>
+            <div style={{position: "absolute", left: "5px", top: "4px"}}>Photo Sources</div>
             <br/>
             {newsSources}
             <br/>
@@ -27,9 +27,9 @@ export const FilterNews = ({newsFilters, clearSavedFilters, saveFilters, updateF
 
 };
 
-FilterNews.propTypes = {
+FilterImages.propTypes = {
     updateFilter: PropTypes.func,
     clearSavedFilters: PropTypes.func,
     saveFilters: PropTypes.func,
-    newsFilters: PropTypes.object
+    imageFilters: PropTypes.object
 };

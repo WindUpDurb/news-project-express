@@ -2,6 +2,11 @@
 
 import React from "react";
 
+const imageSources = {
+    source500PXUpcoming: true,
+    BGBigPicture: true
+};
+
 function merge(left, right) {
     let result = [],
         leftIndex = 0,
@@ -54,7 +59,7 @@ export const aggregateDirectories = (newsDirectory, filterOutObject) => {
     for (let source in newsDirectory) {
         if (!filterOutObject[source]) {
             counter++;
-            if (source === "source500PXUpcoming" || source === "BGBigPicture") {
+            if (imageSources[source]) {
                 toReturn.photos.push(...newsDirectory[source]);
             } else {
                 toReturn.news.push(...newsDirectory[source]);

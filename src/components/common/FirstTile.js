@@ -7,7 +7,7 @@ export const FirstTile = () => {
         <div id="firstTile" className="col-xs-6 col-sm-4 col-md-6">
             <div className="row firstTileTextDiv">
                 <div className="col-md-6 col-md-offset-4">
-                    <span id="windupText">Imagery</span>
+                    <span id="windupText">ImageRead</span>
                     <br/>
                     <span id="windupSubText">Links to the current world</span>
                 </div>

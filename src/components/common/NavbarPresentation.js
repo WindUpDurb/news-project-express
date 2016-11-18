@@ -38,7 +38,7 @@ export const NavbarPresentation = ({activeSearch, searchType, changeDirectory, a
 
                 <div style={{paddingTop: "0.4%"}} className="col-xs-offset-4 col-xs-4">
                     <div className="pull-right">
-                        <span style={{fontSize: "1.3em"}}>Imagery</span>
+                        <span style={{fontSize: "1.3em"}}>ImageRead</span>
                         <div>
                             <span>Links to the Current World &nbsp; &nbsp; &nbsp;</span>
                         </div>
