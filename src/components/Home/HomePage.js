@@ -1,15 +1,17 @@
 "use strict";
 
 import React, {PropTypes} from "react";
+import {connect} from "react-redux";
+import * as NewsActions from "../../actions/NewsActions";
+import * as FunctionTools from "../../actions/FunctionTools";
+
 import {NewsModal} from "../common/NewsModal";
 import {FirstTile} from "../common/FirstTile";
 import {FillerTile} from "../common/FillerTile";
-import {connect} from "react-redux";
-import * as NewsActions from "../../actions/NewsActions";
 import {bindActionCreators} from "redux";
 import {NewsTile} from "../common/NewsTile";
 import {ImageSourceGallery} from "../common/ImageSourceGallery";
-import * as FunctionTools from "../../actions/FunctionTools";
+import {NoContentPage} from "./NoContentPage";
 
 class HomePage extends React.Component {
     constructor(props) {
@@ -57,8 +59,6 @@ class HomePage extends React.Component {
 
     render() {
         let aggregatePrint, imageGallery, currentDirectory;
-        console.log("Print News: ", this.props.aggregatePrintNews.length);
-        console.log("Image News: ", this.props.aggregatePhotos.length);
         if (this.props.aggregatePrintNews) aggregatePrint = this.props.aggregatePrintNews.map((item, index) => {
             return this.mapNews(item, index);
         });
@@ -66,7 +66,10 @@ class HomePage extends React.Component {
             <ImageSourceGallery openLightBox={this.openLightBox} imageSource={this.props.aggregatePhotos}
                                 activeLightbox={this.state.activeLightbox} />
         );
-        this.props.activeDirectory === "photos" ? currentDirectory = imageGallery : currentDirectory = aggregatePrint;
+        if (this.props.aggregatePhotos && !this.props.aggregatePhotos.length) {
+            imageGallery = <NoContentPage/>;
+        }
+            this.props.activeDirectory === "photos" ? currentDirectory = imageGallery : currentDirectory = aggregatePrint;
         return (
             <div>
                 <div className="container-fluid">

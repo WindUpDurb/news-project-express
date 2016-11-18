@@ -95,6 +95,7 @@
     cursor: pointer;
 }
 
+
 .openPhotoLink:hover {
     color: #009688;
     border: 1px solid #009688;
@@ -259,6 +260,25 @@
     visibility: visible;
     opacity: 1;
 }
+
+.noContentBackground {
+    border-top: 1px solid black;
+    height: 250px;
+}
+
+.noContentSubRow {
+    background-color: rgba(68, 68, 68, 0.9);
+}
+
+.noContentText {
+    font-size: 2em;
+}
+
+.divAroundBigOwl {
+    padding-top: 40%;
+    padding-bottom: 40%;
+}
+
 
 .customModal {
     min-height: 400px;
