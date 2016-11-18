@@ -27,15 +27,16 @@ class HomePage extends React.Component {
     }
 
     componentWillMount() {
-        this.props.NewsActions.retrieveFrom("CNN");
-        this.props.NewsActions.retrieveFrom("source500PXUpcoming");
-        this.props.NewsActions.retrieveFrom("TechCrunch");
-        this.props.NewsActions.retrieveFrom("IGN");
-        this.props.NewsActions.retrieveFrom("ABCNewsInternational");
-        this.props.NewsActions.retrieveFrom("NYTimes");
-        //this.props.NewsActions.retrieveFrom("NYTimesInternational");
-        this.props.NewsActions.retrieveFrom("NPR");
-        this.props.NewsActions.retrieveFrom("BGBigPicture");
+        this.props.NewsActions.retrieveAllNewsSources();
+        // this.props.NewsActions.retrieveFrom("CNN");
+        // this.props.NewsActions.retrieveFrom("source500PXUpcoming");
+        // this.props.NewsActions.retrieveFrom("TechCrunch");
+        // this.props.NewsActions.retrieveFrom("IGN");
+        // this.props.NewsActions.retrieveFrom("ABCNewsInternational");
+        // this.props.NewsActions.retrieveFrom("NYTimes");
+        // //this.props.NewsActions.retrieveFrom("NYTimesInternational");
+        // this.props.NewsActions.retrieveFrom("NPR");
+        // this.props.NewsActions.retrieveFrom("BGBigPicture");
     }
 
     mapNews (item, index) {
@@ -69,7 +70,11 @@ class HomePage extends React.Component {
         if (this.props.aggregatePhotos && !this.props.aggregatePhotos.length) {
             imageGallery = <NoContentPage/>;
         }
-            this.props.activeDirectory === "photos" ? currentDirectory = imageGallery : currentDirectory = aggregatePrint;
+
+        this.props.activeDirectory === "photos" ? currentDirectory = imageGallery : currentDirectory = aggregatePrint;
+        if (!this.props.aggregatePhotos && !this.props.aggregatePrintNews) currentDirectory = (
+            <NoContentPage/>
+        );
         return (
             <div>
                 <div className="container-fluid">

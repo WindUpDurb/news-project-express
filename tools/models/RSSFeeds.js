@@ -9,15 +9,17 @@ const sources = {
     ABCNews: "http://feeds.abcnews.com/abcnews/usheadlines",
     IGN: "http://feeds.ign.com/ign/all",
     CNN: "http://rss.cnn.com/rss/cnn_latest.rss",
-    Wired: "http://www.wired.com/feed/",
+    // Wired: "http://www.wired.com/feed/",
     source500PXUpcoming: "https://500px.com/upcoming.rss",
     BGBigPicture: "http://www.bostonglobe.com/rss/bigpicture",
-    Slate: "http://feeds.slate.com/slate",
     NPR: "http://www.npr.org/rss/rss.php?id=1001",
     NYTimes: "http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
-    NYTimesInternational: "http://rss.nytimes.com/services/xml/rss/nyt/InternationalHome.xml",
+    // NYTimesInternational: "http://rss.nytimes.com/services/xml/rss/nyt/InternationalHome.xml",
     TechCrunch: "http://feeds.feedburner.com/TechCrunch/"
 };
+
+const sourcesArray = ["ABCNewsInternational", "ABCNews", "IGN", "CNN", "Wired",
+"source500PXUpcoming", "BGBigPicture", "NPR", "NYTimes", "TechCrunch"];
 
 const convertToUnix = (date) => {
   return moment(date, "DD-MMM-YYYY HH-mm-ss ZZ").unix();
@@ -134,7 +136,6 @@ const cleanNYTimesObject = (nytObject) => {
 
 const clean500PXUpcoming = (upcoming500px) => {
     let imageRegex = /<img.*?src=([^">]*).*?>/;
-    console.log("check: \n \n \n", upcoming500px.description);
     let toReturn = {};
     toReturn.source = "source500PXUpcoming";
     toReturn.icon = "/statics/500pxicon.png";
@@ -161,7 +162,6 @@ const cleanTechCrunch = (techCrunchObject) => {
     // if (techCrunchObject.description && techCrunchObject.description.length > 0) toReturn.description = techCrunchObject.description[0];
     if (techCrunchObject["media:content"] && techCrunchObject["media:content"].length > 0 ) {
         for (let i = 0; i < techCrunchObject["media:content"].length; i++) {
-            console.log("check: ", techCrunchObject["media:content"]);
             if (techCrunchObject["media:content"][i]["$"] && techCrunchObject["media:content"][i]["$"].medium === "image") {
                 if (techCrunchObject["media:content"][i]["$"].url) {
                     toReturn.image = techCrunchObject["media:content"][i]["$"].url;
@@ -227,6 +227,21 @@ const verifyXML = (source, parsedXML) => {
     if (parsedXML.rss.channel.length) return cleanXML(source, parsedXML);
 };
 
+const createFetchSourcePromise = function (source) {
+    return new Promise((resolve, reject) => {
+        retrievePastHours(source, (error, clean) => {
+            if (error) return reject(error);
+            return resolve({content: clean, source});
+        });
+    });
+};
+
+const formatArrayToObject = function (arrayOfContent) {
+    let toReturn = {};
+    arrayOfContent.forEach(contentObject => toReturn[contentObject.source] = contentObject.content);
+    return toReturn;
+};
+
 export const retrievePastHours = (source, callback) => {
     requestNPM(sources[source], (error, response, body) => {
         if (error) return callback(error);
@@ -242,4 +257,14 @@ export const retrievePastHours = (source, callback) => {
             callback(error, clean);
         });
     });
+};
+
+export const retrieveAllSources = (callback) => {
+    let queuedPromises = [];
+    sourcesArray.forEach(source => queuedPromises.push(createFetchSourcePromise(source)));
+    Promise.all(queuedPromises)
+        .then(results => {
+            if (results.length > 0) callback(null, formatArrayToObject(results));
+        })
+        .catch(error => callback(error));
 };

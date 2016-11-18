@@ -10,6 +10,11 @@ export default function newsReducer (state = NewsDirectory, action) {
             return (
                Object.assign({}, state, {[action.source]: action.arrayOfNews})
             );
+
+        case types.ALL_SOURCES_HERE:
+            return (
+                Object.assign({}, state, action.content)
+            );
         default:
             return state;
     }

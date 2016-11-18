@@ -46,6 +46,13 @@ export function dispatchUpdateNewsFilter(newsSource) {
     };
 }
 
+export function dispatchRetrieveAllSources(content) {
+    return {
+        type: types.ALL_SOURCES_HERE,
+        content
+    };
+}
+
 export function updateContentFilters(newsSource) {
     return function (dispatch) {
         dispatch(dispatchUpdateNewsFilter(newsSource));
@@ -70,11 +77,29 @@ export function retrieveFrom(source) {
         dispatch(RequestActions.requestSent());
         fetch(`/api/news/newsPastHours/${source}`)
             .then(response => {
-                dispatch(RequestActions.receivedRequestSuccess());
                 return response.json();
             })
             .then(parsedResponse => {
+                dispatch(RequestActions.receivedRequestSuccess());
                 dispatch(dispatchNews(parsedResponse, source));
+            })
+            .catch(error => {
+                dispatch(RequestActions.receivedRequestError());
+                toastr.error(error);
+            });
+    };
+}
+
+export function retrieveAllNewsSources() {
+    return function (dispatch) {
+        dispatch(RequestActions.requestSent());
+        fetch("/api/news/retrieveAllSources")
+            .then(response => {
+                return response.json();
+            })
+            .then(parsedResponse => {
+                dispatch(RequestActions.receivedRequestSuccess());
+                if(!parsedResponse.error) dispatch(dispatchRetrieveAllSources(parsedResponse));
             })
             .catch(error => {
                 dispatch(RequestActions.receivedRequestError());
