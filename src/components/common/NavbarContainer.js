@@ -60,7 +60,7 @@ class NavbarContainer extends React.Component {
     
     changeDirectory(directory) {
         if (this.props.activeDirectory !== directory) {
-            this.setState({directoryFilterNews: false});
+            this.setState({directoryFilterNews: false, directoryFilterImages: false});
             this.props.NewsActions.changeDirectory(directory);
             window.scrollTo(0, 0);
         } else {

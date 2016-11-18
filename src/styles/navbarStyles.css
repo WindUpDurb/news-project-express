@@ -94,7 +94,7 @@
     top: 50px;
     z-index: 10;
     height: auto;
-    width: 30%;
+    width: auto;
     background-color: rgba(68, 68, 68, 0.9);
     color: #D2D2D2;
 }

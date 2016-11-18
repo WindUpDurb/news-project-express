@@ -54,11 +54,13 @@ export function updateContentFilters(newsSource) {
 
 export function saveFilters(filters) {
     localStorage.setItem("imageryNewsSavedFilters", JSON.stringify(filters));
+    toastr.info("The current filters have been saved");
 }
 
 export function clearSavedFilters() {
     return function (dispatch) {
         localStorage.removeItem("imageryNewsSavedFilters");
+        toastr.info("Your saved filters have been cleared");
         dispatch(clearAllFilters());
     };
 }

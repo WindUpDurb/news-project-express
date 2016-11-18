@@ -12,9 +12,9 @@ export const SearchBar = ({searchType, googleSearch, searchQuery, updateSearchFi
                 <span onClick={close} className="closeSearchButton">X</span>
             </div>
             <form onSubmit={googleSearch} >
-                <div className="form-group label-floating">
+                <div className="form-group">
                     <label className="control-label" htmlFor="focusedInput1">{searchLabel}</label>
-                    <input value={searchQuery} onChange={updateSearchField} className="form-control" id="focusedInput1" type="text"/>
+                    <input style={{width: "100%", color: "#D2D2D2"}} value={searchQuery} onChange={updateSearchField} className="form-control" id="focusedInput1" type="text"/>
                 </div>
             </form>
         </div>

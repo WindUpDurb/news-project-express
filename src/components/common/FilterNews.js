@@ -5,7 +5,11 @@ import {NewsSourceIcon} from "./NewsSourceIcon";
 
 export const FilterNews = ({newsFilters, clearSavedFilters, saveFilters, updateFilter}) => {
     let newsSources = ["CNN", "IGN", "ABCNewsInternational", "NYTimes", "NPR", "TechCrunch"].map((newsSource, index) => {
-        return <NewsSourceIcon newsFilters={newsFilters} updateFilter={updateFilter} key={index} newsSource={newsSource}/>;
+        return (
+            <div key={index} style={{padding: "5px"}} className="col-xs-4 col-sm-3">
+                <NewsSourceIcon newsFilters={newsFilters} updateFilter={updateFilter} newsSource={newsSource}/>
+            </div>
+        );
     });
     return (
         <div>
@@ -15,10 +19,12 @@ export const FilterNews = ({newsFilters, clearSavedFilters, saveFilters, updateF
             <br/>
             <br/>
             <br/>
-            <div style={{position: "absolute", right: "5px", bottom: "4px"}}>
-                <span onClick={saveFilters} className="saveFilterButton">Save Filters</span>
-                <div style={{display: "inline-block", marginLeft: "10px"}}>
-                    <span onClick={clearSavedFilters} className="saveFilterButton">Clear Saved Filters</span>
+            <div style={{marginTop: "40px", height: "15px"}}>
+                <div style={{position: "absolute", right: "5px", bottom: "4px"}}>
+                    <span onClick={saveFilters} className="saveFilterButton">Save Filters</span>
+                    <div style={{display: "inline-block", marginLeft: "10px"}}>
+                        <span onClick={clearSavedFilters} className="saveFilterButton">Clear Saved Filters</span>
+                    </div>
                 </div>
             </div>
 

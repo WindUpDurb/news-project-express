@@ -3,7 +3,6 @@
 import React from "react";
 
 export const NoContentPage = () => {
-    console.log("No contnet")
     return (
         <div>
             <div className="col-xs-6 col-sm-8 col-md-6 noContentBackground">
