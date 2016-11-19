@@ -67,6 +67,8 @@ export const aggregateDirectories = (newsDirectory, filterOutObject) => {
         }
     }
     //let shuffled = shuffleArray(toReturn);
+	///////////////////Use performance.now() to check efficiency compared to quick sort algorithm in notes
+	//Otherwise, recursion is slow, and re-do as an iterative merge sort
     if (toReturn.news.length) {
         toReturn.news = mergeSort(toReturn.news);
         for (let i = 6; i < toReturn.news.length; i += 6) {

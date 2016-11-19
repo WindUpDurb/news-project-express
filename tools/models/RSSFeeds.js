@@ -18,7 +18,7 @@ const sources = {
     TechCrunch: "http://feeds.feedburner.com/TechCrunch/"
 };
 
-const sourcesArray = ["ABCNewsInternational", "ABCNews", "IGN", "CNN", "Wired",
+const sourcesArray = ["ABCNewsInternational", "ABCNews", "IGN", "CNN",
 "source500PXUpcoming", "BGBigPicture", "NPR", "NYTimes", "TechCrunch"];
 
 const convertToUnix = (date) => {
