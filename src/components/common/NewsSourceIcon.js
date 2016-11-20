@@ -13,6 +13,10 @@ export const NewsSourceIcon = ({newsSource, newsFilters, updateFilter}) => {
             newsFilters[newsSource] ? newsIcon = <img onClick={update} className="newsIcon grayScaleNewsSource cursorPointer" src="/statics/cnnIcon.png"/> :
                 newsIcon = <img onClick={update} className="newsIcon cursorPointer" src="/statics/cnnIcon.png"/>;
             break;
+        case "BBC":
+            newsFilters[newsSource] ? newsIcon = <img onClick={update} className="newsIcon grayScaleNewsSource cursorPointer" src="/statics/bbcNewsIcon.png"/> :
+                newsIcon = <img onClick={update} className="newsIcon cursorPointer" src="/statics/bbcNewsIcon.png"/>;
+            break;
         case "IGN":
             newsFilters[newsSource] ? newsIcon = <img onClick={update} className="newsIcon grayScaleNewsSource cursorPointer" src="/statics/ignIcon.png"/> :
                 newsIcon = <img onClick={update} className="newsIcon cursorPointer" src="/statics/ignIcon.png"/>;

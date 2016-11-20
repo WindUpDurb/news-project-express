@@ -15,10 +15,13 @@ const sources = {
     NPR: "http://www.npr.org/rss/rss.php?id=1001",
     NYTimes: "http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
     // NYTimesInternational: "http://rss.nytimes.com/services/xml/rss/nyt/InternationalHome.xml",
-    TechCrunch: "http://feeds.feedburner.com/TechCrunch/"
+    TechCrunch: "http://feeds.feedburner.com/TechCrunch/",
+    // BBC: "http://feeds.bbci.co.uk/news/rss.xml?edition=uk",
+    //Grabbing from BBC World Below
+    BBC: "http://feeds.bbci.co.uk/news/world/rss.xml?edition=uk"
 };
 
-const sourcesArray = ["ABCNewsInternational", "ABCNews", "IGN", "CNN",
+const sourcesArray = ["ABCNewsInternational", "ABCNews", "IGN", "BBC", "CNN",
 "source500PXUpcoming", "BGBigPicture", "NPR", "NYTimes", "TechCrunch"];
 
 const convertToUnix = (date) => {
@@ -157,7 +160,7 @@ const cleanTechCrunch = (techCrunchObject) => {
     if (techCrunchObject.title && techCrunchObject.title.length > 0) toReturn.title = techCrunchObject.title[0];
     if (techCrunchObject.link && techCrunchObject.link.length > 0) toReturn.link = techCrunchObject.link[0];
     if (techCrunchObject.pubDate && techCrunchObject.pubDate.length > 0) toReturn.published = techCrunchObject.pubDate[0];
-    if (techCrunchObject.pubDate && techCrunchObject.pubDate.length > 0) toReturn.publishedUnixt = convertToUnix(techCrunchObject.pubDate[0]);
+    if (techCrunchObject.pubDate && techCrunchObject.pubDate.length > 0) toReturn.publishedUnix = convertToUnix(techCrunchObject.pubDate[0]);
     if (!techCrunchObject.pubDate || !techCrunchObject.pubDate.length) return {noPubDate: true};
     // if (techCrunchObject.description && techCrunchObject.description.length > 0) toReturn.description = techCrunchObject.description[0];
     if (techCrunchObject["media:content"] && techCrunchObject["media:content"].length > 0 ) {
@@ -170,6 +173,20 @@ const cleanTechCrunch = (techCrunchObject) => {
             }
         }
     }
+    return toReturn;
+};
+
+const cleanBBC = (bbcObject) => {
+    let toReturn = {};
+    if (bbcObject.title && bbcObject.title.length > 0) toReturn.title = bbcObject.title[0];
+    if (bbcObject.description && bbcObject.description.length > 0) toReturn.description = bbcObject.description[0];
+    if (bbcObject.link && bbcObject.link.length > 0) toReturn.link = bbcObject.link[0];
+    if (!bbcObject.pubDate) return {noPubDate: true};
+    if (bbcObject.pubDate && bbcObject.pubDate.length > 0) toReturn.published = bbcObject.pubDate[0];
+    if (bbcObject.pubDate && bbcObject.pubDate.length > 0) toReturn.publishedUnix = convertToUnix(bbcObject.pubDate[0]);
+    if (bbcObject["media:thumbnail"] && bbcObject["media:thumbnail"].length > 0) toReturn.image = bbcObject["media:thumbnail"][0]["$"].url;
+    toReturn.icon = "/statics/bbcNewsIcon.png";
+    toReturn.source = "BBC";
     return toReturn;
 };
 
@@ -198,6 +215,7 @@ const cleanSlate = (parsedXML) => {
 const cleanXML = (source, parsedXML) => {
     let cleanUp;
     if (source === "CNN") cleanUp = cleanCNNObject;
+    if (source === "BBC" || source === "BBCWorld") cleanUp = cleanBBC;
     if (source === "TechCrunch") cleanUp = cleanTechCrunch;
     if (source === "Wired") return parsedXML;
     if (source === "IGN") cleanUp = cleanIGNObject;
