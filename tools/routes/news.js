@@ -15,8 +15,6 @@ router.get("/newsPastHours/:source", (request, response) => {
 
 router.get("/retrieveAllSources", (request, response) => {
     RSSFeeds.retrieveAllSources((error, data) => {
-        console.log("Error: ", error);
-        console.log("Data: ", data);
         if (error || data.status === "ERROR") return response.status(400).send(error || data.statusInfo);
         response.send(data);
     });

@@ -23,7 +23,7 @@ export const NavbarPresentation = ({activeSearch, searchType, changeDirectory, a
     return (
           <div id="navbarDiv">
               <div className="row">
-                <div className="col-xs-5 col-md-4">
+                <div className="col-xs-6 col-md-4">
                     <div className="navIconDiv">
                         <div className="additionalIconDiv">{googleIcon}</div>
                         <div className="additionalIconDiv">{newsIcon}</div>
@@ -36,7 +36,7 @@ export const NavbarPresentation = ({activeSearch, searchType, changeDirectory, a
                       {/*{photoIcon}*/}
                   {/*</div>*/}
 
-                <div style={{paddingTop: "0.4%"}} className="col-xs-offset-4 col-xs-4">
+                <div style={{paddingTop: "0.4%"}} className="col-xs-6 col-sm-offset-2 col-sm-4 col-md-offset-4 col-md-4">
                     <div className="pull-right">
                         <span style={{fontSize: "1.3em"}}>Imageread</span>
                         <div>
