@@ -277,12 +277,13 @@ export const retrievePastHours = (source, callback) => {
     });
 };
 
-export const retrieveAllSources = (callback) => {
+export const retrieveAllSources = (analyze, callback) => {
     let queuedPromises = [];
     sourcesArray.forEach(source => queuedPromises.push(createFetchSourcePromise(source)));
     Promise.all(queuedPromises)
         .then(results => {
-            if (results.length > 0) callback(null, formatArrayToObject(results));
+            if (results.length > 0 && !analyze) callback(null, formatArrayToObject(results));
+            if (results.length > 0 && analyze) callback(null, results);
         })
         .catch(error => callback(error));
 };
